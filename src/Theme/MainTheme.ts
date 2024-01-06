@@ -39,7 +39,7 @@ const cacheRtl = createCache({
 
 let mainTheme = createTheme({});
 mainTheme = createTheme(mainTheme, {
-  // direction: 'rtl',
+  direction: 'rtl',
   palette: {
     mainColor: {
       main: '#fdcd48',

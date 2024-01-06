@@ -6,7 +6,7 @@ import type { RootState } from './Redux/Store'
 import '../dist/tailwindOut.css';
 
 import routes from './Route/Routes';
-
+import Menu from './Components/Menu/Menu';
 
 export default function App(): React.JSX.Element {
   const loginInfo = useSelector((state: RootState) => state.login);
@@ -16,7 +16,9 @@ export default function App(): React.JSX.Element {
   return (
     <>
       <Box sx={{ backgroundColor: theme.palette.secondColor.main }}>
-        {router}
+        <Menu>
+          {router}
+        </Menu>
       </Box>
     </>
   )

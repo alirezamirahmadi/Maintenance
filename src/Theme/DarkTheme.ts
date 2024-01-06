@@ -29,7 +29,7 @@ const cacheRtl = createCache({
 
 let darkTheme = createTheme({});
 darkTheme = createTheme(darkTheme, {
-  // direction: 'rtl',
+  direction: 'rtl',
   palette: {
     mode: 'dark',
     mainColor: {
