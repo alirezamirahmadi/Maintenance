@@ -6,13 +6,13 @@ import { BrowserRouter } from 'react-router-dom';
 import Theme from './Theme.tsx';
 import { cacheRtl } from './Theme/MainTheme.ts';
 import Store from './Redux/Store.ts';
-// import LoadDatas from './Utils/LoadDatas';
+import LoadDatas from './Utils/LoadDatas';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <Provider store={Store}>
       <CacheProvider value={cacheRtl}>
         <BrowserRouter>
-          {/* <LoadDatas /> */}
+          <LoadDatas />
           <Theme />
         </BrowserRouter>
       </CacheProvider>

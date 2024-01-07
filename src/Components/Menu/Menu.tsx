@@ -1,28 +1,15 @@
 import { useState, useEffect } from 'react';
 import { styled, useTheme, Theme, CSSObject } from '@mui/material/styles';
-import { ListSubheader, Collapse, Tooltip } from '@mui/material';
+import {
+  Box, Collapse, Tooltip, Toolbar, List, CssBaseline, Typography, Divider, IconButton,
+  ListItem, ListItemButton, ListItemIcon, ListItemText,
+} from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import Box from '@mui/material/Box';
 import MuiDrawer from '@mui/material/Drawer';
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import List from '@mui/material/List';
-import CssBaseline from '@mui/material/CssBaseline';
-import Typography from '@mui/material/Typography';
-import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
-import ExpandLess from '@mui/icons-material/ExpandLess';
-import ExpandMore from '@mui/icons-material/ExpandMore';
-
 
 import { MenuItemData } from '../../Utils/Datas';
 
@@ -117,7 +104,7 @@ export default function Menu({ children }: { children: React.ReactNode }): React
   }
   const selectCategory = (id: number, href: string) => {
     setListSelected(id);
-    navigate(`/${href}`);
+    navigate(href);
   }
   const handleOpenCollapse = (id: number) => {
     let collapse = openCollapse?.find(col => col.id === id);

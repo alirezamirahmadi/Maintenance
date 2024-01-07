@@ -25,4 +25,10 @@ type MenuItemType = {
   subMenu: { id: number,icon?:React.ReactNode, title: string, href: string, }[],
 }
 
-export type { personType, accountType, loginType, MenuItemType }
+type BorderOneProp = {
+  title?: string,
+  className?:string,
+  children: React.ReactNode,
+}
+
+export type { personType, accountType, loginType, MenuItemType, BorderOneProp }

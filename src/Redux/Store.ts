@@ -1,10 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit'
 
 import LoginReducer from './Reducer/LoginReducer';
+import DeviceReducer from './Reducer/DeviceReducer';
 
 const store = configureStore({
   reducer: {
     login:LoginReducer,
+    device:DeviceReducer,
   }
 })
 
