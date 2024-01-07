@@ -184,7 +184,7 @@ export default function Menu({ children }: { children: React.ReactNode }): React
           }
         </List>
       </Drawer>
-      <Box component="main" sx={{ flexGrow: 1, p: 3, pt: 10 }}>
+      <Box component="main" sx={{ flexGrow: 1, p: 0.5, pt: 7 }}>
         {children}
       </Box>
     </div>

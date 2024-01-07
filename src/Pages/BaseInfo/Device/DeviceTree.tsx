@@ -1,4 +1,4 @@
-
+import { useNavigate } from "react-router";
 import { Typography, useTheme } from "@mui/material";
 import { TreeView } from '@mui/x-tree-view/TreeView';
 
@@ -7,6 +7,10 @@ import { DeviceType } from "../../../Types/BaseInfoType";
 
 export default function DeviceTree({ deviceTree }: { deviceTree: DeviceType }) {
   const theme = useTheme();
+  const navigate = useNavigate();
+  const handleLoadDevice = (idDevice:number) => {
+    navigate(`/device/${idDevice}`)
+  }
 
   return (
     <div dir="rtl" className="ps-1">
@@ -17,7 +21,7 @@ export default function DeviceTree({ deviceTree }: { deviceTree: DeviceType }) {
         defaultEndIcon={<CloseSquare color='textColor' />}
       >
         <StyledTreeItem nodeId={deviceTree.id.toString()} label={
-          <Typography variant="textbase" sx={{ cursor: 'pointer' }} color={theme.palette.textColor.main}>{deviceTree.deviceName}</Typography>
+          <Typography onClick={() => handleLoadDevice(deviceTree.id)} variant="textbase" sx={{ cursor: 'pointer' }} color={theme.palette.textColor.main}>{deviceTree.deviceName}</Typography>
         }>
           {
             deviceTree?.subDevice?.map((child) => {

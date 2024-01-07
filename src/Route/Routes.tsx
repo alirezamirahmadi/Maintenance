@@ -8,6 +8,7 @@ import Action from "../Pages/Operation/Action/Action";
 const routes = (isLogin:boolean) => [
   {path:'/', element:<Home/>},
   {path:'/device', element:<Device/>},
+  {path:'/device/:idDevice', element:<Device/>},
   {path:'/service', element:<Service/>},
   {path:'/notice', element:<Notice/>},
   {path:'/workOrder', element:<WorkOrder/>},
