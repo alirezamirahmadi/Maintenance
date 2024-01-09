@@ -46,7 +46,6 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   alignItems: 'center',
   justifyContent: 'flex-end',
   padding: theme.spacing(0, 1),
-  // necessary for content to be below app bar
   ...theme.mixins.toolbar,
 }));
 
@@ -109,7 +108,7 @@ export default function Menu({ children }: { children: React.ReactNode }): React
   const handleOpenCollapse = (id: number) => {
     let collapse = openCollapse?.find(col => col.id === id);
     let tempArray = openCollapse?.filter(col => col.id != id);
-    collapse && setOpenCollapse([...tempArray, { id, open: !collapse.open }]) //(openCollapse[index].open = !openCollapse[index].open);
+    collapse && setOpenCollapse([...tempArray, { id, open: !collapse.open }])
   }
   const isCollapseOpen = (id: number) => {
     let collapse = openCollapse.find(col => col.id === id);
@@ -127,24 +126,24 @@ export default function Menu({ children }: { children: React.ReactNode }): React
   return (
     <div dir='rtl' className='flex'>
       <CssBaseline />
-      <AppBar position="fixed" open={open} sx={{ bgcolor: theme.palette.secondColor.main }}>
+      <AppBar position="fixed" open={open}>
         <Toolbar>
           <IconButton color="inherit" aria-label="open drawer" onClick={handleDrawerOpen} edge="start"
             sx={{ ...(open && { display: 'none' }), }}
           >
-            <MenuIcon color='textColor' />
+            <MenuIcon />
           </IconButton>
         </Toolbar>
       </AppBar>
-      <Drawer variant="permanent" open={open} sx={{ backgroundColor: theme.palette.secondColor.main }}>
-        <DrawerHeader sx={{ bgcolor: theme.palette.secondColor.main }}>
+      <Drawer variant="permanent" open={open} >
+        <DrawerHeader >
           <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'rtl' ? <ChevronRightIcon color='textColor' /> : <ChevronLeftIcon color='textColor' />}
+            {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
           </IconButton>
         </DrawerHeader>
         <Divider />
         <List
-          sx={{ width: '100%', height: '100%', maxWidth: 360, bgcolor: theme.palette.secondColor.main, fontFamily: theme.typography.fontFamily }}
+          sx={{ width: '100%', height: '100%', maxWidth: 360 }}
           component="nav"
           aria-labelledby="category-menu">
           {
@@ -155,7 +154,7 @@ export default function Menu({ children }: { children: React.ReactNode }): React
                     <ListItemIcon sx={{ minWidth: 0, mr: open ? 2 : 'auto', justifyContent: 'center' }} >
                       {menuItem.icon}
                     </ListItemIcon>
-                    <ListItemText sx={{ opacity: open ? 1 : 0 }} primary={<Typography variant='textbase' color={theme.palette.textColor.main}>{menuItem.title}</Typography>} />
+                    <ListItemText sx={{ opacity: open ? 1 : 0 }} primary={<Typography variant='body1' >{menuItem.title}</Typography>} />
                   </ListItemButton>
                 </Tooltip>
                 {
@@ -167,10 +166,10 @@ export default function Menu({ children }: { children: React.ReactNode }): React
                           <ListItem key={subItem.id} disablePadding sx={{ display: 'block' }}>
                             <Tooltip title={open ? '' : subItem.title}>
                               <ListItemButton onClick={() => selectCategory(subItem.id, subItem.href)} sx={{ height: 30, justifyContent: open ? 'initial' : 'center', px: 2.5 }}>
-                                <ListItemIcon sx={{ minWidth: 0, mr: open ? 1 : 'auto', justifyContent: 'center', color: listSelected === subItem.id ? theme.palette.mainColor.main : theme.palette.textColor.main }} >
+                                <ListItemIcon sx={{ minWidth: 0, mr: open ? 1 : 'auto', justifyContent: 'center', color:listSelected === subItem.id ? theme.palette.primary.main :'text.primary' }} >
                                   {subItem.icon}
                                 </ListItemIcon>
-                                <ListItemText sx={{ opacity: open ? 1 : 0 }} primary={<Typography variant='textsm' color={listSelected === subItem.id ? theme.palette.mainColor.main : theme.palette.textColor.main}>{subItem.title}</Typography>} />
+                                <ListItemText sx={{ opacity: open ? 1 : 0 }} primary={<Typography variant='body2' color={listSelected === subItem.id ? 'primary' :'text.primary'}>{subItem.title}</Typography>} />
                               </ListItemButton>
                             </Tooltip>
                           </ListItem>

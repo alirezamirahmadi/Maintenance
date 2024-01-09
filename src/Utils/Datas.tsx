@@ -1,3 +1,4 @@
+import { GridColDef } from '@mui/x-data-grid';
 import ViewComfyIcon from '@mui/icons-material/ViewComfy';
 import SelectAllIcon from '@mui/icons-material/SelectAll';
 import CableIcon from '@mui/icons-material/Cable';
@@ -10,8 +11,8 @@ import { MenuItemType } from '../Types/BasicType';
 import { DeviceType, BOMType } from '../Types/BaseInfoType';
 
 const MenuItemData: MenuItemType[] = [
-  { id: 1, title: 'اطلاعات پایه', icon: <ViewComfyIcon fontSize='large' color='textColor' />, subMenu: [{ id: 1, title: 'دستگاه', icon: <CableIcon fontSize='medium' color='inherit' />, href: '/device' }, { id: 2, title: 'سرویس', icon: <ReceiptLongIcon fontSize='medium' color='inherit' />, href: '/service' }] },
-  { id: 2, title: 'عملیات', icon: <SelectAllIcon fontSize='large' color='textColor' />, subMenu: [{ id: 3, title: 'اعلان', icon: <NotificationsIcon fontSize='medium' color='inherit' />, href: '/notice' }, { id: 4, title: 'دستورکار', icon: <VerticalSplitIcon fontSize='medium' color='inherit' />, href: '/workOrder' }, { id: 5, title: 'عملکرد', icon: <WorkHistoryIcon fontSize='medium' color='inherit' />, href: '/action' }] }
+  { id: 1, title: 'اطلاعات پایه', icon: <ViewComfyIcon fontSize='large' />, subMenu: [{ id: 1, title: 'دستگاه', icon: <CableIcon fontSize='medium' color='inherit' />, href: '/device' }, { id: 2, title: 'سرویس', icon: <ReceiptLongIcon fontSize='medium' color='inherit' />, href: '/service' }] },
+  { id: 2, title: 'عملیات', icon: <SelectAllIcon fontSize='large' />, subMenu: [{ id: 3, title: 'اعلان', icon: <NotificationsIcon fontSize='medium' color='inherit' />, href: '/notice' }, { id: 4, title: 'دستورکار', icon: <VerticalSplitIcon fontSize='medium' color='inherit' />, href: '/workOrder' }, { id: 5, title: 'عملکرد', icon: <WorkHistoryIcon fontSize='medium' color='inherit' />, href: '/action' }] }
 ]
 
 const DeviceData: DeviceType =
@@ -65,6 +66,25 @@ const DeviceData: DeviceType =
     ]
 }
 
+const BOMData: BOMType[] = [
+  { id: 1, idDevice: 1, BOMCode: '1a1', BOMName: 'فن', BOMNo: 'swe 22', BOMNumber: 2, active: true },
+  { id: 2, idDevice: 1, BOMCode: '1a2', BOMName: 'سوئیچ', BOMNo: 'swe 2ws', BOMNumber: 1, active: true },
+  { id: 3, idDevice: 1, BOMCode: '1a3', BOMName: 'پروانه', BOMNo: 'swe 234', BOMNumber: 5, active: true },
+  { id: 4, idDevice: 2, BOMCode: '2a1', BOMName: 'کلید', BOMNo: 'swcv fr4', BOMNumber: 4, active: true },
+  { id: 5, idDevice: 2, BOMCode: '2a2', BOMName: 'فن', BOMNo: 'swwwe', BOMNumber: 2, active: true },
+  { id: 6, idDevice: 15, BOMCode: '15a1', BOMName: 'فن', BOMNo: 'sx vf2', BOMNumber: 9, active: true },
+  { id: 7, idDevice: 15, BOMCode: '15a2', BOMName: 'سوئیچ', BOMNo: 'swe de3', BOMNumber: 22, active: true },
+  { id: 8, idDevice: 15, BOMCode: '15a3', BOMName: 'پروانه', BOMNo: 'sde3e 22', BOMNumber: 3, active: true },
+  { id: 9, idDevice: 15, BOMCode: '15a4', BOMName: 'کلید', BOMNo: 'swe 3s', BOMNumber: 5, active: true },
+  { id: 10, idDevice: 15, BOMCode: '15a5', BOMName: 'هیتر', BOMNo: 'swwww', BOMNumber: 1, active: true },
+]
 
+const BOMTableColumns: GridColDef[] = [
+  { field: 'BOMCode', headerName: 'کد', width: 70 },
+  { field: 'BOMName', headerName: 'نام', width: 100 },
+  { field: 'BOMNo', headerName: 'مشخصه فنی', width: 100 },
+  { field: 'BOMNumber', headerName: 'تعداد', width: 50 },
+  { field: 'active', headerName: 'فعال', width: 50 },
+]
 
-export { MenuItemData, DeviceData }
+export { MenuItemData, DeviceData, BOMData, BOMTableColumns }
