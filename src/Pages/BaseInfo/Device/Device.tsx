@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react";
 import { Typography, FormControlLabel, Checkbox, TextField } from "@mui/material";
-import { DataGrid } from '@mui/x-data-grid';
+// import { DataGrid } from '@mui/x-data-grid';
 import MUIDataTable from "mui-datatables";
 import { useParams } from "react-router";
-import createCache from "@emotion/cache";
 import { CacheProvider } from "@emotion/react";
 import { useSelector } from "react-redux";
 import type { RootState } from '../../../Redux/Store';
@@ -12,11 +11,7 @@ import BorderOne from "../../../Components/Global/Border/BorderOne"
 import { BOMType, DeviceType } from "../../../Types/BaseInfoType";
 import DeviceTree from "./DeviceTree";
 import { BOMTableColumns } from "../../../Utils/Datas";
-
-const muiCache = createCache({
-  key: "mui-datatables",
-  prepend: true
-});
+import { cacheDataTable } from "../../../Theme";
 
 export default function Device(): React.JSX.Element {
   const deviceParams = useParams();
@@ -37,7 +32,7 @@ export default function Device(): React.JSX.Element {
   useEffect(() => {
     findDevice(devices, deviceParams.idDevice ? deviceParams.idDevice : '-1');
   }, [deviceParams])
-  
+
   useEffect(() => {
     setDeviceCode(selectedDevice ? selectedDevice.deviceCode : '')
     setDeviceName(selectedDevice ? selectedDevice.deviceName : '')
@@ -64,9 +59,8 @@ export default function Device(): React.JSX.Element {
               <FormControlLabel control={<Checkbox checked={deviceActive} onChange={event => setDeviceActive(event.target.checked)} />} label={<Typography variant="body2" >فعال</Typography>} />
             </div>
           </BorderOne>
-          <BorderOne title="BOM">
-            <CacheProvider value={muiCache}>
-
+          <BorderOne>
+            <CacheProvider value={cacheDataTable}>
               <MUIDataTable data={deviceBOM} columns={BOMTableColumns} title='BOM' options={{ responsive: 'vertical' }}
               // pageSizeOptions={[5, 10]} checkboxSelection
               // initialState={{ pagination: { paginationModel: { page: 0, pageSize: 5 } } }}

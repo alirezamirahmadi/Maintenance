@@ -33,10 +33,7 @@ type ServiceType = {
 
 type ActivityType = {
   id: number,
-  idService: number,
   title: string,
-  fulfill: boolean,
-  description: string,
 }
 
 export type { DeviceType, BOMType, ServicePeriod, ServiceType, ActivityType, }

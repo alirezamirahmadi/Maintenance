@@ -1,11 +1,15 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { TextField, Select, MenuItem, FormControl, InputLabel, } from "@mui/material"
+import { TextField, Select, MenuItem, FormControl, InputLabel, } from "@mui/material";
+import MUIDataTable from "mui-datatables";
+import { CacheProvider } from "@emotion/react";
 import { useSelector } from "react-redux";
 import type { RootState } from '../../../Redux/Store';
 
-import BorderOne from "../../../Components/Global/Border/BorderOne"
-import { ServiceType, ServicePeriod, ActivityType } from "../../../Types/BaseInfoType";
+import BorderOne from "../../../Components/Global/Border/BorderOne";
+import { ServiceType, ActivityType } from "../../../Types/BaseInfoType";
+import { cacheDataTable } from "../../../Theme";
+import { ActivityTableColumns } from "../../../Utils/Datas";
 
 export default function Service(): React.JSX.Element {
   const [service, setService] = useState<ServiceType>();
@@ -60,6 +64,11 @@ export default function Service(): React.JSX.Element {
           </FormControl>
           <TextField variant="outlined" size="small" type="number" sx={{ maxWidth: 100 }} value={duration} onChange={handleDuration} label='مدت زمان'></TextField>
         </div>
+      </BorderOne>
+      <BorderOne>
+        <CacheProvider value={cacheDataTable}>
+          <MUIDataTable data={activity} columns={ActivityTableColumns} title='فعالیت ها' options={{ responsive: 'vertical' }}/>
+            </CacheProvider>
       </BorderOne>
     </>
   )

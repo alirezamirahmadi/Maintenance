@@ -12,7 +12,11 @@ import App from './App.tsx';
 const cacheRtl = createCache({
   key: 'muirtl',
   stylisPlugins: [prefixer, rtlPlugin],
-})
+});
+const cacheDataTable = createCache({
+  key: "mui-datatables",
+  prepend: true
+});
 
 export default function Theme() {
   const [cookies, setCookie, removeCookie] = useCookies(['dark-mode']);
@@ -49,44 +53,6 @@ export default function Theme() {
       },
       typography: {
         fontFamily: ["B Nazanin"].join(","),
-        // button: {
-        //   fontFamily: 'B Nazanin',
-        //   fontSize: 16,
-        //   fontWeight: 600,
-        // },
-        // textxs: {
-        //   fontFamily: 'B Nazanin',
-        //   fontSize: 12,
-        // },
-        // textsm: {
-        //   fontFamily: 'B Nazanin',
-        //   fontSize: 14,
-        // },
-        // textbase: {
-        //   fontSize: 16,
-        //   fontWeight: 600,
-        // },
-        // textlg: {
-        //   fontFamily: 'B Nazanin',
-        //   fontSize: 18,
-        //   fontWeight: 600,
-        // },
-        // textxl: {
-        //   fontFamily: 'B Nazanin',
-        //   fontSize: 20,
-        // },
-        // text2xl: {
-        //   fontFamily: 'B Nazanin',
-        //   fontSize: 24,
-        // },
-        // text3xl: {
-        //   fontFamily: 'B Nazanin',
-        //   fontSize: 30,
-        // },
-        // text4xl: {
-        //   fontFamily: 'B Nazanin',
-        //   fontSize: 36,
-        // },
       },
     }),
     [mode]
@@ -101,3 +67,5 @@ export default function Theme() {
     </CacheProvider>
   )
 }
+
+export {cacheDataTable};

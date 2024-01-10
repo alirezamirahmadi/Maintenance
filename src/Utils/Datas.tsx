@@ -98,36 +98,34 @@ const BOMTableColumns: MUIDataTableColumn[] = [
 const ServiceData: ServiceType[] = [
   {
     id: 1, title: 'تعمیرات اساسی', kind: { id: 1, text: 'تعمیراتی' }, activity: [
-      { id: 1, idService: 1, title: 'تعمیر1', fulfill: true, description: 'test' },
-      { id: 2, idService: 1, title: 'تعمیر2', fulfill: false, description: 'test' },
-      { id: 3, idService: 1, title: 'تعویض', fulfill: true, description: 'test' },
+      { id: 1, title: 'تعمیر1' },
+      { id: 2, title: 'تعمیر2' },
+      { id: 3, title: 'تعویض' },
     ]
   },
   {
     id: 2, title: 'تعویضات اساسی', kind: { id: 1, text: 'تعمیراتی' }, activity: [
-      { id: 4, idService: 2, title: 'تعمیر1', fulfill: false, description: 'test' },
-      { id: 5, idService: 2, title: 'تعمیر2', fulfill: true, description: 'test' },
+      { id: 4, title: 'تعمیر1' },
+      { id: 5, title: 'تعمیر2' },
     ]
   },
   {
     id: 3, title: 'بازدید', kind: { id: 2, text: 'پیشگیرانه' }, period: { id: 1, title: { id: 1, text: 'ساعت' }, duration: 10 }, activity: [
-      { id: 6, idService: 3, title: 'تعمیر1', fulfill: true, description: 'test' },
-      { id: 7, idService: 3, title: 'تعمیر2', fulfill: true, description: 'test' },
-      { id: 8, idService: 3, title: 'تعمیر3', fulfill: true, description: 'test' },
-      { id: 9, idService: 3, title: 'تعویض1', fulfill: false, description: 'test' },
+      { id: 6, title: 'تعمیر1' },
+      { id: 7, title: 'تعمیر2' },
+      { id: 8, title: 'تعمیر3' },
+      { id: 9, title: 'تعویض1' },
     ]
   },
   {
     id: 4, title: 'بازدید اساسی', kind: { id: 2, text: 'پیشگیرانه' }, period: { id: 1, title: { id: 2, text: 'روز' }, duration: 1 }, activity: [
-      { id: 10, idService: 4, title: 'تعویض2', fulfill: true, description: 'test' },
+      { id: 10, title: 'تعویض2' },
     ]
   },
 ]
 
 const ActivityTableColumns: MUIDataTableColumn[] = [
   { name: 'title', label: 'عنوان', options: { filter: true, sort: true, } },
-  { name: 'fulfill', label: 'انجام شد؟', options: { filter: true, sort: true, } },
-  { name: 'description', label: 'توضیحات', options: { filter: true, sort: true, } },
 ]
 
 export { MenuItemData, DeviceData, BOMData, BOMTableColumns, ServiceData, ActivityTableColumns, }
