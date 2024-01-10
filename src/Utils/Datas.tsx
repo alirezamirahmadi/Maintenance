@@ -1,4 +1,5 @@
 import { GridColDef } from '@mui/x-data-grid';
+import { MUIDataTableColumn } from 'mui-datatables';
 import ViewComfyIcon from '@mui/icons-material/ViewComfy';
 import SelectAllIcon from '@mui/icons-material/SelectAll';
 import CableIcon from '@mui/icons-material/Cable';
@@ -8,7 +9,7 @@ import VerticalSplitIcon from '@mui/icons-material/VerticalSplit';
 import WorkHistoryIcon from '@mui/icons-material/WorkHistory';
 
 import { MenuItemType } from '../Types/BasicType';
-import { DeviceType, BOMType } from '../Types/BaseInfoType';
+import { DeviceType, BOMType, ServiceType, ActivityType } from '../Types/BaseInfoType';
 
 const MenuItemData: MenuItemType[] = [
   { id: 1, title: 'اطلاعات پایه', icon: <ViewComfyIcon fontSize='large' />, subMenu: [{ id: 1, title: 'دستگاه', icon: <CableIcon fontSize='medium' color='inherit' />, href: '/device' }, { id: 2, title: 'سرویس', icon: <ReceiptLongIcon fontSize='medium' color='inherit' />, href: '/service' }] },
@@ -79,12 +80,54 @@ const BOMData: BOMType[] = [
   { id: 10, idDevice: 15, BOMCode: '15a5', BOMName: 'هیتر', BOMNo: 'swwww', BOMNumber: 1, active: true },
 ]
 
-const BOMTableColumns: GridColDef[] = [
-  { field: 'BOMCode', headerName: 'کد', width: 70 },
-  { field: 'BOMName', headerName: 'نام', width: 100 },
-  { field: 'BOMNo', headerName: 'مشخصه فنی', width: 100 },
-  { field: 'BOMNumber', headerName: 'تعداد', width: 50 },
-  { field: 'active', headerName: 'فعال', width: 50 },
+// const BOMTableColumns: GridColDef[] = [
+//   { field: 'BOMCode', headerName: 'کد', width: 70 },
+//   { field: 'BOMName', headerName: 'نام', width: 100 },
+//   { field: 'BOMNo', headerName: 'مشخصه فنی', width: 100 },
+//   { field: 'BOMNumber', headerName: 'تعداد', width: 50 },
+//   { field: 'active', headerName: 'فعال', width: 50 },
+// ]
+const BOMTableColumns: MUIDataTableColumn[] = [
+  { name: 'BOMCode', label: 'کد', options: { filter: true, sort: true, } },
+  { name: 'BOMName', label: 'نام', options: { filter: true, sort: true, } },
+  { name: 'BOMNo', label: 'مشخصه فنی', options: { filter: true, sort: true, } },
+  { name: 'BOMNumber', label: 'تعداد', options: { filter: true, sort: true, } },
+  { name: 'active', label: 'فعال', options: { filter: true, sort: true, } },
 ]
 
-export { MenuItemData, DeviceData, BOMData, BOMTableColumns }
+const ServiceData: ServiceType[] = [
+  {
+    id: 1, title: 'تعمیرات اساسی', kind: { id: 1, text: 'تعمیراتی' }, activity: [
+      { id: 1, idService: 1, title: 'تعمیر1', fulfill: true, description: 'test' },
+      { id: 2, idService: 1, title: 'تعمیر2', fulfill: false, description: 'test' },
+      { id: 3, idService: 1, title: 'تعویض', fulfill: true, description: 'test' },
+    ]
+  },
+  {
+    id: 2, title: 'تعویضات اساسی', kind: { id: 1, text: 'تعمیراتی' }, activity: [
+      { id: 4, idService: 2, title: 'تعمیر1', fulfill: false, description: 'test' },
+      { id: 5, idService: 2, title: 'تعمیر2', fulfill: true, description: 'test' },
+    ]
+  },
+  {
+    id: 3, title: 'بازدید', kind: { id: 2, text: 'پیشگیرانه' }, period: { id: 1, title: { id: 1, text: 'ساعت' }, duration: 10 }, activity: [
+      { id: 6, idService: 3, title: 'تعمیر1', fulfill: true, description: 'test' },
+      { id: 7, idService: 3, title: 'تعمیر2', fulfill: true, description: 'test' },
+      { id: 8, idService: 3, title: 'تعمیر3', fulfill: true, description: 'test' },
+      { id: 9, idService: 3, title: 'تعویض1', fulfill: false, description: 'test' },
+    ]
+  },
+  {
+    id: 4, title: 'بازدید اساسی', kind: { id: 2, text: 'پیشگیرانه' }, period: { id: 1, title: { id: 2, text: 'روز' }, duration: 1 }, activity: [
+      { id: 10, idService: 4, title: 'تعویض2', fulfill: true, description: 'test' },
+    ]
+  },
+]
+
+const ActivityTableColumns: MUIDataTableColumn[] = [
+  { name: 'title', label: 'عنوان', options: { filter: true, sort: true, } },
+  { name: 'fulfill', label: 'انجام شد؟', options: { filter: true, sort: true, } },
+  { name: 'description', label: 'توضیحات', options: { filter: true, sort: true, } },
+]
+
+export { MenuItemData, DeviceData, BOMData, BOMTableColumns, ServiceData, ActivityTableColumns, }

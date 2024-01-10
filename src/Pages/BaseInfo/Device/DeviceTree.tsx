@@ -26,7 +26,7 @@ export default function DeviceTree({ deviceTree }: { deviceTree: DeviceType }) {
           {
             deviceTree?.subDevice?.map((child) => {
               return (
-                <DeviceTree deviceTree={child} />
+                <DeviceTree key={child.id} deviceTree={child} />
               )
             })
           }

@@ -10,6 +10,7 @@ const routes = (isLogin:boolean) => [
   {path:'/device', element:<Device/>},
   {path:'/device/:idDevice', element:<Device/>},
   {path:'/service', element:<Service/>},
+  {path:'/service/:idService', element:<Service/>},
   {path:'/notice', element:<Notice/>},
   {path:'/workOrder', element:<WorkOrder/>},
   {path:'/action', element:<Action/>},
