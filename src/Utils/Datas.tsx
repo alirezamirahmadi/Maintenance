@@ -9,7 +9,7 @@ import VerticalSplitIcon from '@mui/icons-material/VerticalSplit';
 import WorkHistoryIcon from '@mui/icons-material/WorkHistory';
 
 import { MenuItemType } from '../Types/BasicType';
-import { DeviceType, BOMType, ServiceType, ActivityType } from '../Types/BaseInfoType';
+import { DeviceType, BOMType, ServiceType, ListServiceType, ActivityType } from '../Types/BaseInfoType';
 
 const MenuItemData: MenuItemType[] = [
   { id: 1, title: 'اطلاعات پایه', icon: <ViewComfyIcon fontSize='large' />, subMenu: [{ id: 1, title: 'دستگاه', icon: <CableIcon fontSize='medium' color='inherit' />, href: '/device' }, { id: 2, title: 'سرویس', icon: <ReceiptLongIcon fontSize='medium' color='inherit' />, href: '/service' }] },
@@ -110,7 +110,7 @@ const ServiceData: ServiceType[] = [
     ]
   },
   {
-    id: 3, title: 'بازدید', kind: { id: 2, text: 'پیشگیرانه' }, period: { id: 1, title: { id: 1, text: 'ساعت' }, duration: 10 }, activity: [
+    id: 3, title: 'بازدید', kind: { id: 2, text: 'پیشگیرانه' }, period: { id: 1, text: 'ساعت' }, duration: 10, activity: [
       { id: 6, title: 'تعمیر1' },
       { id: 7, title: 'تعمیر2' },
       { id: 8, title: 'تعمیر3' },
@@ -118,14 +118,28 @@ const ServiceData: ServiceType[] = [
     ]
   },
   {
-    id: 4, title: 'بازدید اساسی', kind: { id: 2, text: 'پیشگیرانه' }, period: { id: 1, title: { id: 2, text: 'روز' }, duration: 1 }, activity: [
+    id: 4, title: 'بازدید اساسی', kind: { id: 2, text: 'پیشگیرانه' }, period: { id: 2, text: 'روز' }, duration: 1, activity: [
       { id: 10, title: 'تعویض2' },
     ]
   },
+]
+const ListServiceData: ListServiceType[] = [
+  { id: 1, title: 'تعمیرات اساسی', kind: 'تعمیراتی' },
+  { id: 2, title: 'تعویضات اساسی', kind: 'تعمیراتی' },
+  { id: 3, title: 'بازدید', kind: 'پیشگیرانه', period: 'ساعت', duration: 10, },
+  { id: 4, title: 'بازدید اساسی', kind: 'پیشگیرانه', period: 'روز', duration: 1, },
 ]
 
 const ActivityTableColumns: MUIDataTableColumn[] = [
   { name: 'title', label: 'عنوان', options: { filter: true, sort: true, } },
 ]
 
-export { MenuItemData, DeviceData, BOMData, BOMTableColumns, ServiceData, ActivityTableColumns, }
+const ServiceTableColumns: MUIDataTableColumn[] = [
+  { name: 'id', label: 'کد', options: { filter: true, sort: true, } },
+  { name: 'title', label: 'عنوان', options: { filter: true, sort: true, } },
+  { name: 'kind', label: 'نوع', options: { filter: true, sort: true, } },
+  { name: 'period', label: 'دوره زمانی', options: { filter: true, sort: true, } },
+  { name: 'duration', label: 'مدت زمان', options: { filter: true, sort: true, } },
+]
+
+export { MenuItemData, DeviceData, BOMData, BOMTableColumns, ServiceData, ListServiceData, ActivityTableColumns, ServiceTableColumns }

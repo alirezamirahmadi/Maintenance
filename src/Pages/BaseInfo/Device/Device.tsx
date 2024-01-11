@@ -28,7 +28,7 @@ export default function Device(): React.JSX.Element {
     if (device.id.toString() === idDevice) { setSelectedDevice(device) }
     device.subDevice?.map(subdevice => findDevice(subdevice, idDevice));
   }
-
+ 
   useEffect(() => {
     findDevice(devices, deviceParams.idDevice ? deviceParams.idDevice : '-1');
   }, [deviceParams])

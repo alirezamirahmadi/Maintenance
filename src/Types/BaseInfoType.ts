@@ -17,18 +17,21 @@ type BOMType = {
   active: boolean,
 }
 
-type ServicePeriod = {
-  id: number,
-  title: { id: 1, text: 'ساعت' } | { id: 2, text: 'روز' } | { id: 3, text: 'هفته' } | { id: 4, text: 'ماه' },
-  duration: number,
-}
 
 type ServiceType = {
   id: number,
   title: string,
   kind: { id: 2, text: 'پیشگیرانه' } | { id: 1, text: 'تعمیراتی' },
-  period?: ServicePeriod,
+  period?: { id: 1, text: 'ساعت' } | { id: 2, text: 'روز' } | { id: 3, text: 'هفته' } | { id: 4, text: 'ماه' },
+  duration?: number,
   activity: ActivityType[],
+}
+type ListServiceType = {
+  id: number,
+  title: string,
+  kind: string,
+  period?: string,
+  duration?: number,
 }
 
 type ActivityType = {
@@ -36,4 +39,4 @@ type ActivityType = {
   title: string,
 }
 
-export type { DeviceType, BOMType, ServicePeriod, ServiceType, ActivityType, }
+export type { DeviceType, BOMType, ServiceType, ListServiceType, ActivityType, }
