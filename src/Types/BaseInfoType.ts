@@ -17,7 +17,6 @@ type BOMType = {
   active: boolean,
 }
 
-
 type ServiceType = {
   id: number,
   title: string,
@@ -26,6 +25,7 @@ type ServiceType = {
   duration?: number,
   activity: ActivityType[],
 }
+
 type ListServiceType = {
   id: number,
   title: string,
@@ -39,4 +39,9 @@ type ActivityType = {
   title: string,
 }
 
-export type { DeviceType, BOMType, ServiceType, ListServiceType, ActivityType, }
+type ProblemType = {
+  id: number,
+  title: string,
+}
+
+export type { DeviceType, BOMType, ServiceType, ListServiceType, ActivityType, ProblemType }

@@ -7,12 +7,13 @@ import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import VerticalSplitIcon from '@mui/icons-material/VerticalSplit';
 import WorkHistoryIcon from '@mui/icons-material/WorkHistory';
+import BugReportIcon from '@mui/icons-material/BugReport';
 
 import { MenuItemType } from '../Types/BasicType';
-import { DeviceType, BOMType, ServiceType, ListServiceType, ActivityType } from '../Types/BaseInfoType';
+import { DeviceType, BOMType, ServiceType, ListServiceType, ProblemType } from '../Types/BaseInfoType';
 
 const MenuItemData: MenuItemType[] = [
-  { id: 1, title: 'اطلاعات پایه', icon: <ViewComfyIcon fontSize='large' />, subMenu: [{ id: 1, title: 'دستگاه', icon: <CableIcon fontSize='medium' color='inherit' />, href: '/device' }, { id: 2, title: 'سرویس', icon: <ReceiptLongIcon fontSize='medium' color='inherit' />, href: '/service' }] },
+  { id: 1, title: 'اطلاعات پایه', icon: <ViewComfyIcon fontSize='large' />, subMenu: [{ id: 1, title: 'دستگاه', icon: <CableIcon fontSize='medium' color='inherit' />, href: '/device' }, { id: 2, title: 'سرویس', icon: <ReceiptLongIcon fontSize='medium' color='inherit' />, href: '/service' }, { id: 6, title: 'ایراد', icon: <BugReportIcon fontSize='medium' color='inherit' />, href: '/problem' }] },
   { id: 2, title: 'عملیات', icon: <SelectAllIcon fontSize='large' />, subMenu: [{ id: 3, title: 'اعلان', icon: <NotificationsIcon fontSize='medium' color='inherit' />, href: '/notice' }, { id: 4, title: 'دستورکار', icon: <VerticalSplitIcon fontSize='medium' color='inherit' />, href: '/workOrder' }, { id: 5, title: 'عملکرد', icon: <WorkHistoryIcon fontSize='medium' color='inherit' />, href: '/action' }] }
 ]
 
@@ -142,4 +143,16 @@ const ServiceTableColumns: MUIDataTableColumn[] = [
   { name: 'duration', label: 'مدت زمان', options: { filter: true, sort: true, } },
 ]
 
-export { MenuItemData, DeviceData, BOMData, BOMTableColumns, ServiceData, ListServiceData, ActivityTableColumns, ServiceTableColumns }
+const ProblemData: ProblemType[] = [
+  {id:1, title:'باز شدن پیچ'},
+  {id:2, title:'پاره شدن تسمه'},
+  {id:3, title:'قطع سیم برق'},
+]
+
+const ProblemTableColumns: MUIDataTableColumn[] = [
+  { name: 'id', label: 'کد', options: { filter: true, sort: true, } },
+  { name: 'title', label: 'عنوان', options: { filter: true, sort: true, } },
+]
+
+export { MenuItemData, DeviceData, BOMData, BOMTableColumns, ServiceData, ListServiceData, 
+  ActivityTableColumns, ServiceTableColumns, ProblemData, ProblemTableColumns }

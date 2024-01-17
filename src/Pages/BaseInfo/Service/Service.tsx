@@ -16,7 +16,6 @@ export default function Service(): React.JSX.Element {
   const services = useSelector((state: RootState) => state.service);
   const [tabIndex, setTabIndex] = React.useState('1');
   const [service, setService] = useState<ServiceType>();
-  const [listService, setListService] = useState<ServiceType[]>([]);
   const [title, setTitle] = useState<string>('');
   const [kind, setKind] = useState<string>('');
   const [period, setPeriod] = useState<string>('');
@@ -47,11 +46,7 @@ export default function Service(): React.JSX.Element {
       setService(services[index]);
     }
   }, [[], serviceParams])
-  useEffect(() => {
-    setListService(services);
-    console.log(services);
-    
-  }, [])
+
   return (
     <>
       <TabContext value={tabIndex}>

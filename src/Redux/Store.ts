@@ -4,6 +4,7 @@ import LoginReducer from './Reducer/LoginReducer';
 import DeviceReducer from './Reducer/DeviceReducer';
 import BOMReducer from './Reducer/BOMReducer';
 import ServiceReducer from './Reducer/ServiceReducer';
+import ProblemReducer from './Reducer/ProblemReducer';
 
 const store = configureStore({
   reducer: {
@@ -11,6 +12,7 @@ const store = configureStore({
     device:DeviceReducer,
     BOM:BOMReducer,
     service:ServiceReducer,
+    problem:ProblemReducer,
   }
 })
 
