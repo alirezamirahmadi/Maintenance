@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { TextField, Select, MenuItem, FormControl, InputLabel, Box, Tab } from "@mui/material";
 import { TabContext, TabList, TabPanel, } from '@mui/lab';
 import MUIDataTable from "mui-datatables";
@@ -11,6 +11,7 @@ import BorderOne from "../../../Components/Global/Border/BorderOne";
 import { ServiceType, ActivityType } from "../../../Types/BaseInfoType";
 import { cacheDataTable } from "../../../Theme";
 import { ActivityTableColumns, ServiceTableColumns, ListServiceData } from "../../../Utils/Datas";
+import { DataTableOptions } from "../../../Utils/Datas";
 
 export default function Service(): React.JSX.Element {
   const services = useSelector((state: RootState) => state.service);
@@ -22,6 +23,7 @@ export default function Service(): React.JSX.Element {
   const [duration, setDuration] = useState<number>(0);
   const [activity, setActivity] = useState<ActivityType[]>([]);
   const serviceParams = useParams();
+  const navigate = useNavigate();
 
   const handleDuration = (event: React.ChangeEvent<HTMLInputElement>) => {
     let value = Number(event.target.value);
@@ -29,6 +31,10 @@ export default function Service(): React.JSX.Element {
   }
   const handleChangeTab = (event: React.SyntheticEvent, newValue: string) => {
     setTabIndex(newValue);
+  }
+  const showDetailService = (rowData:string[]) => {
+    navigate(`/service/${rowData[0]}`);
+    setTabIndex('1');
   }
 
   useEffect(() => {
@@ -81,13 +87,13 @@ export default function Service(): React.JSX.Element {
           </BorderOne>
           <BorderOne>
             <CacheProvider value={cacheDataTable}>
-              <MUIDataTable data={activity} columns={ActivityTableColumns} title='فعالیت ها' options={{ responsive: 'vertical' }} />
+              <MUIDataTable data={activity} columns={ActivityTableColumns} title='فعالیت ها' options={DataTableOptions} />
             </CacheProvider>
           </BorderOne>
         </TabPanel>
         <TabPanel value="2">
           <CacheProvider value={cacheDataTable}>
-            <MUIDataTable data={ListServiceData} columns={ServiceTableColumns} title='سرویس ها' options={{ responsive: 'vertical' }} />
+            <MUIDataTable data={ListServiceData} columns={ServiceTableColumns} title='سرویس ها' options={{ ...DataTableOptions, onRowClick: (rowData: string[]) => showDetailService(rowData) }} />
           </CacheProvider>
         </TabPanel>
       </TabContext>

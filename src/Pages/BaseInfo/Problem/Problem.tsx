@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { TextField, Box, Tab } from "@mui/material";
 import { TabContext, TabList, TabPanel, } from '@mui/lab';
 import MUIDataTable from "mui-datatables";
@@ -11,6 +11,7 @@ import BorderOne from "../../../Components/Global/Border/BorderOne";
 import { ServiceType } from "../../../Types/BaseInfoType";
 import { cacheDataTable } from "../../../Theme";
 import { ProblemTableColumns } from "../../../Utils/Datas";
+import { DataTableOptions } from "../../../Utils/Datas";
 
 export default function Problem(): React.JSX.Element {
   const problems = useSelector((state: RootState) => state.problem);
@@ -18,9 +19,14 @@ export default function Problem(): React.JSX.Element {
   const [problem, setProblem] = useState<ServiceType>();
   const [title, setTitle] = useState<string>('');
   const problemParams = useParams();
+  const navigate = useNavigate();
 
   const handleChangeTab = (event: React.SyntheticEvent, newValue: string) => {
     setTabIndex(newValue);
+  }
+  const showDetailProblem = (rowData: string[]) => {
+    navigate(`/problem/${rowData[0]}`);
+    setTabIndex('1');
   }
 
   useEffect(() => {
@@ -54,7 +60,7 @@ export default function Problem(): React.JSX.Element {
         </TabPanel>
         <TabPanel value="2">
           <CacheProvider value={cacheDataTable}>
-            <MUIDataTable data={problems} columns={ProblemTableColumns} title='ایرادها' options={{ responsive: 'vertical' }} />
+            <MUIDataTable data={problems} columns={ProblemTableColumns} title='ایرادها' options={{...DataTableOptions, onRowClick:(rowData: string[]) => showDetailProblem(rowData)}} />
           </CacheProvider>
         </TabPanel>
       </TabContext>

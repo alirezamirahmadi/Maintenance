@@ -1,4 +1,3 @@
-import { GridColDef } from '@mui/x-data-grid';
 import { MUIDataTableColumn } from 'mui-datatables';
 import ViewComfyIcon from '@mui/icons-material/ViewComfy';
 import SelectAllIcon from '@mui/icons-material/SelectAll';
@@ -16,6 +15,45 @@ const MenuItemData: MenuItemType[] = [
   { id: 1, title: 'اطلاعات پایه', icon: <ViewComfyIcon fontSize='large' />, subMenu: [{ id: 1, title: 'دستگاه', icon: <CableIcon fontSize='medium' color='inherit' />, href: '/device' }, { id: 2, title: 'سرویس', icon: <ReceiptLongIcon fontSize='medium' color='inherit' />, href: '/service' }, { id: 6, title: 'ایراد', icon: <BugReportIcon fontSize='medium' color='inherit' />, href: '/problem' }] },
   { id: 2, title: 'عملیات', icon: <SelectAllIcon fontSize='large' />, subMenu: [{ id: 3, title: 'اعلان', icon: <NotificationsIcon fontSize='medium' color='inherit' />, href: '/notice' }, { id: 4, title: 'دستورکار', icon: <VerticalSplitIcon fontSize='medium' color='inherit' />, href: '/workOrder' }, { id: 5, title: 'عملکرد', icon: <WorkHistoryIcon fontSize='medium' color='inherit' />, href: '/action' }] }
 ]
+
+const DataTableOptions = {
+  // responsive: 'vertical',
+  // onRowClick: (rowData: string[], rowMeta: { dataIndex: number, rowIndex: number })=>{console.log(rowMeta);
+  // },
+  textLabels: {
+    body: {
+      noMatch: "داده ای جهت نمایش وجود ندارد",
+      toolTip: "مرتب سازی",
+    },
+    pagination: {
+      next: "صفحه بعدی",
+      previous: "صفحه قبلی",
+      rowsPerPage: "تعداد ردیف در هر صفحه",
+      displayRows: "از",
+    },
+    toolbar: {
+      search: "جستجو",
+      downloadCsv: "دانلود CSV",
+      print: "چاپ",
+      viewColumns: "مشاهده ستون ها",
+      filterTable: "فیلتر جدوب",
+    },
+    filter: {
+      all: "تمام",
+      title: "فیلترها",
+      reset: "ریست",
+    },
+    viewColumns: {
+      title: "نمایش ستون ها",
+      titleAria: "نمایش/عدم نمایش ستون ها",
+    },
+    selectedRows: {
+      text: "سطر انتخاب شده",
+      delete: "حذف",
+      deleteAria: "حذف سطرهای انتخاب شده",
+    },
+  }
+}
 
 const DeviceData: DeviceType =
 {
@@ -136,7 +174,7 @@ const ActivityTableColumns: MUIDataTableColumn[] = [
 ]
 
 const ServiceTableColumns: MUIDataTableColumn[] = [
-  { name: 'id', label: 'کد', options: { filter: true, sort: true, } },
+  { name: 'id', label: 'کد', options: { filter: true, sort: true, display:false } },
   { name: 'title', label: 'عنوان', options: { filter: true, sort: true, } },
   { name: 'kind', label: 'نوع', options: { filter: true, sort: true, } },
   { name: 'period', label: 'دوره زمانی', options: { filter: true, sort: true, } },
@@ -144,15 +182,17 @@ const ServiceTableColumns: MUIDataTableColumn[] = [
 ]
 
 const ProblemData: ProblemType[] = [
-  {id:1, title:'باز شدن پیچ'},
-  {id:2, title:'پاره شدن تسمه'},
-  {id:3, title:'قطع سیم برق'},
+  { id: 1, title: 'باز شدن پیچ' },
+  { id: 2, title: 'پاره شدن تسمه' },
+  { id: 3, title: 'قطع سیم برق' },
 ]
 
 const ProblemTableColumns: MUIDataTableColumn[] = [
-  { name: 'id', label: 'کد', options: { filter: true, sort: true, } },
+  { name: 'id', label: 'کد', options: { filter: true, sort: true, display:false } },
   { name: 'title', label: 'عنوان', options: { filter: true, sort: true, } },
 ]
 
-export { MenuItemData, DeviceData, BOMData, BOMTableColumns, ServiceData, ListServiceData, 
-  ActivityTableColumns, ServiceTableColumns, ProblemData, ProblemTableColumns }
+export {
+  MenuItemData, DeviceData, BOMData, BOMTableColumns, ServiceData, ListServiceData,
+  ActivityTableColumns, ServiceTableColumns, ProblemData, ProblemTableColumns, DataTableOptions
+}

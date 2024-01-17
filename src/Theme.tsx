@@ -54,6 +54,22 @@ export default function Theme() {
       typography: {
         fontFamily: ["B Nazanin"].join(","),
       },
+      components: {
+        MUIDataTableBodyCell: {
+          styleOverrides: {
+            root: {
+              textAlign:'right'
+            }
+          }
+        },
+        MUIDataTable:{
+         styleOverrides:{
+          tableRoot:{
+            overflow:'unset',
+          }
+         } 
+        }
+      }
     }),
     [mode]
   )
@@ -68,4 +84,4 @@ export default function Theme() {
   )
 }
 
-export {cacheDataTable};
+export { cacheDataTable };

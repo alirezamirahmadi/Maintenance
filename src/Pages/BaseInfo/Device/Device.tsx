@@ -12,6 +12,7 @@ import { BOMType, DeviceType } from "../../../Types/BaseInfoType";
 import DeviceTree from "./DeviceTree";
 import { BOMTableColumns } from "../../../Utils/Datas";
 import { cacheDataTable } from "../../../Theme";
+import { DataTableOptions } from "../../../Utils/Datas";
 
 export default function Device(): React.JSX.Element {
   const deviceParams = useParams();
@@ -61,7 +62,7 @@ export default function Device(): React.JSX.Element {
           </BorderOne>
           <BorderOne>
             <CacheProvider value={cacheDataTable}>
-              <MUIDataTable data={deviceBOM} columns={BOMTableColumns} title='BOM' options={{ responsive: 'vertical' }}
+              <MUIDataTable data={deviceBOM} columns={BOMTableColumns} title='BOM' options={DataTableOptions}
               // pageSizeOptions={[5, 10]} checkboxSelection
               // initialState={{ pagination: { paginationModel: { page: 0, pageSize: 5 } } }}
               />
