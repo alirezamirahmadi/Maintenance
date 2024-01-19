@@ -31,6 +31,9 @@ export default function WorkOrder(): React.JSX.Element {
   const [startDate, setStartDate] = useState<Value>();
   const [endDate, setEndDate] = useState<Value>();
   const [description, setDescription] = useState<string>('');
+  const [serviceKind, setServiceKind] = useState<string>('');
+  const [servicePeriod, setServicePeriod] = useState<string>('');
+  const [serviceDuration, setServiceDuration] = useState<number>(0);
   const workorderParams = useParams();
   const navigate = useNavigate();
   const theme = useTheme();
@@ -53,6 +56,9 @@ export default function WorkOrder(): React.JSX.Element {
     if (workorder) {
       setDevice(workorder.device);
       setService(workorder.service);
+      setServiceKind(workorder.service.kind);
+      setServicePeriod(workorder.service.period ? workorder.service.period : '');
+      setServiceDuration(workorder.service.duration ? workorder.service.duration : 0);
       setStartDate(workorder.startDate);
       setEndDate(workorder.endDate);
       setDescription(workorder.description ? workorder.description : '');
@@ -79,6 +85,11 @@ export default function WorkOrder(): React.JSX.Element {
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-5">
               <SelectDevice value={device} selectedDevice={handleSelectedDevice} />
               <SelectService value={service} selectedService={handleSelectedService} />
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-5 mt-4">
+              <TextField variant="outlined" size="small" value={serviceKind} disabled label='نوع سرویس'></TextField>
+              <TextField variant="outlined" size="small" value={servicePeriod} disabled label='دوره زمانی'></TextField>
+              <TextField variant="outlined" size="small" value={serviceDuration} disabled label='مدت زمان'></TextField>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-5 mt-4">
               <DatePicker
