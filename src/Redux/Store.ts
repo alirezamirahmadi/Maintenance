@@ -5,6 +5,7 @@ import DeviceReducer from './Reducer/DeviceReducer';
 import BOMReducer from './Reducer/BOMReducer';
 import ServiceReducer from './Reducer/ServiceReducer';
 import ProblemReducer from './Reducer/ProblemReducer';
+import NoticeReducer from './Reducer/NoticeReducer';
 
 const store = configureStore({
   reducer: {
@@ -13,6 +14,7 @@ const store = configureStore({
     BOM:BOMReducer,
     service:ServiceReducer,
     problem:ProblemReducer,
+    notice:NoticeReducer,
   }
 })
 

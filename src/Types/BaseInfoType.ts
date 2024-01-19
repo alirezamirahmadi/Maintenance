@@ -7,6 +7,12 @@ type DeviceType = {
   subDevice?: DeviceType[],
 }
 
+type ListDeviceNameType = {
+  id: number,
+  deviceName: string,
+  deviceCode: string,
+}
+
 type BOMType = {
   id: number,
   idDevice: number,
@@ -44,4 +50,7 @@ type ProblemType = {
   title: string,
 }
 
-export type { DeviceType, BOMType, ServiceType, ListServiceType, ActivityType, ProblemType }
+export type {
+  DeviceType, BOMType, ServiceType, ListServiceType, ActivityType, ProblemType,
+  ListDeviceNameType
+}

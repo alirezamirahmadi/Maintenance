@@ -15,6 +15,7 @@ const routes = (isLogin:boolean) => [
   {path:'/problem', element:<Problem/>},
   {path:'/problem/:idProblem', element:<Problem/>},
   {path:'/notice', element:<Notice/>},
+  {path:'/notice/:idNotice', element:<Notice/>},
   {path:'/workOrder', element:<WorkOrder/>},
   {path:'/action', element:<Action/>},
 ]

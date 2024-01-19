@@ -9,7 +9,8 @@ import WorkHistoryIcon from '@mui/icons-material/WorkHistory';
 import BugReportIcon from '@mui/icons-material/BugReport';
 
 import { MenuItemType } from '../Types/BasicType';
-import { DeviceType, BOMType, ServiceType, ListServiceType, ProblemType } from '../Types/BaseInfoType';
+import { DeviceType, BOMType, ServiceType, ListServiceType, ProblemType, ListDeviceNameType } from '../Types/BaseInfoType';
+import { NoticeType, ListNoticeType } from '../Types/OperationType';
 
 const MenuItemData: MenuItemType[] = [
   { id: 1, title: 'اطلاعات پایه', icon: <ViewComfyIcon fontSize='large' />, subMenu: [{ id: 1, title: 'دستگاه', icon: <CableIcon fontSize='medium' color='inherit' />, href: '/device' }, { id: 2, title: 'سرویس', icon: <ReceiptLongIcon fontSize='medium' color='inherit' />, href: '/service' }, { id: 6, title: 'ایراد', icon: <BugReportIcon fontSize='medium' color='inherit' />, href: '/problem' }] },
@@ -18,8 +19,6 @@ const MenuItemData: MenuItemType[] = [
 
 const DataTableOptions = {
   // responsive: 'vertical',
-  // onRowClick: (rowData: string[], rowMeta: { dataIndex: number, rowIndex: number })=>{console.log(rowMeta);
-  // },
   textLabels: {
     body: {
       noMatch: "داده ای جهت نمایش وجود ندارد",
@@ -106,6 +105,27 @@ const DeviceData: DeviceType =
     ]
 }
 
+const listDeviceNameData = [
+  { id: 0, deviceCode: '00', deviceName: 'کارخانه', },
+  { id: 1, deviceCode: '11', deviceName: 'سنگ شکن واحد یک', },
+  { id: 2, deviceCode: '12', deviceName: 'سنگ شکن واحد دو' },
+  { id: 3, deviceCode: '21', deviceName: 'آسیاب واحد یک', },
+  { id: 4, deviceCode: '22', deviceName: 'آسیاب واحد دو', },
+  { id: 5, deviceCode: '31', deviceName: 'کوره واحد یک', },
+  { id: 6, deviceCode: '32', deviceName: 'کوره واحد دو', },
+  { id: 7, deviceCode: '111', deviceName: 'سنگ شکن واحد', },
+  { id: 8, deviceCode: '121', deviceName: 'سنگ شکن واحد', },
+  { id: 9, deviceCode: '211', deviceName: 'آسیاب واحد', },
+  { id: 10, deviceCode: '221', deviceName: 'آسیاب واحد', },
+  { id: 11, deviceCode: '311', deviceName: 'کوره واحد', },
+  { id: 12, deviceCode: '321', deviceName: 'کوره واحد', },
+  { id: 13, deviceCode: '2211', deviceName: 'آسیاب', },
+  { id: 14, deviceCode: '3111', deviceName: 'کوره', },
+  { id: 15, deviceCode: '3211', deviceName: 'کوره', },
+  { id: 16, deviceCode: '112', deviceName: 'سنگ نشکن واحد', },
+]
+
+
 const BOMData: BOMType[] = [
   { id: 1, idDevice: 1, BOMCode: '1a1', BOMName: 'فن', BOMNo: 'swe 22', BOMNumber: 2, active: true },
   { id: 2, idDevice: 1, BOMCode: '1a2', BOMName: 'سوئیچ', BOMNo: 'swe 2ws', BOMNumber: 1, active: true },
@@ -119,13 +139,6 @@ const BOMData: BOMType[] = [
   { id: 10, idDevice: 15, BOMCode: '15a5', BOMName: 'هیتر', BOMNo: 'swwww', BOMNumber: 1, active: true },
 ]
 
-// const BOMTableColumns: GridColDef[] = [
-//   { field: 'BOMCode', headerName: 'کد', width: 70 },
-//   { field: 'BOMName', headerName: 'نام', width: 100 },
-//   { field: 'BOMNo', headerName: 'مشخصه فنی', width: 100 },
-//   { field: 'BOMNumber', headerName: 'تعداد', width: 50 },
-//   { field: 'active', headerName: 'فعال', width: 50 },
-// ]
 const BOMTableColumns: MUIDataTableColumn[] = [
   { name: 'BOMCode', label: 'کد', options: { filter: true, sort: true, } },
   { name: 'BOMName', label: 'نام', options: { filter: true, sort: true, } },
@@ -174,7 +187,7 @@ const ActivityTableColumns: MUIDataTableColumn[] = [
 ]
 
 const ServiceTableColumns: MUIDataTableColumn[] = [
-  { name: 'id', label: 'کد', options: { filter: true, sort: true, display:false } },
+  { name: 'id', label: 'کد', options: { filter: true, sort: true, display: false } },
   { name: 'title', label: 'عنوان', options: { filter: true, sort: true, } },
   { name: 'kind', label: 'نوع', options: { filter: true, sort: true, } },
   { name: 'period', label: 'دوره زمانی', options: { filter: true, sort: true, } },
@@ -188,11 +201,28 @@ const ProblemData: ProblemType[] = [
 ]
 
 const ProblemTableColumns: MUIDataTableColumn[] = [
-  { name: 'id', label: 'کد', options: { filter: true, sort: true, display:false } },
+  { name: 'id', label: 'کد', options: { filter: true, sort: true, display: false } },
   { name: 'title', label: 'عنوان', options: { filter: true, sort: true, } },
 ]
 
+const NoticeData: NoticeType[] = [
+  { id: 1, idDevice: 2, noticeDate: '1402/01/12', description: 'تست', problem: [{ id: 1, title: 'باز شدن پیچ' }] },
+  { id: 2, idDevice: 3, noticeDate: '1402/02/13', problem: [{ id: 1, title: 'باز شدن پیچ' }, { id: 3, title: 'قطع سیم برق' }] },
+]
+const ListNoticeData: ListNoticeType[] = [
+  { id: 1, deviceName: 'سنگ شکن واحد دو', noticeDate: '1402/01/12', description: 'تست' },
+  { id: 2, deviceName: 'آسیاب واحد یک', noticeDate: '1402/02/13' },
+]
+
+const NoticeTableColumns: MUIDataTableColumn[] = [
+  { name: 'id', label: 'کد', options: { filter: true, sort: true, display: false } },
+  { name: 'deviceName', label: 'نام دستگاه', options: { filter: true, sort: true, } },
+  { name: 'noticeDate', label: 'تاریخ', options: { filter: true, sort: true } },
+  { name: 'description', label: 'توضیحات', options: { filter: true, sort: true } },
+]
+
 export {
-  MenuItemData, DeviceData, BOMData, BOMTableColumns, ServiceData, ListServiceData,
-  ActivityTableColumns, ServiceTableColumns, ProblemData, ProblemTableColumns, DataTableOptions
+  MenuItemData, DeviceData, listDeviceNameData, BOMData, BOMTableColumns, ServiceData, ListServiceData,
+  ActivityTableColumns, ServiceTableColumns, ProblemData, ProblemTableColumns, DataTableOptions,
+  NoticeData, ListNoticeData, NoticeTableColumns
 }
