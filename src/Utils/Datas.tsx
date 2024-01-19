@@ -14,7 +14,7 @@ import { NoticeType, ListNoticeType } from '../Types/OperationType';
 
 const MenuItemData: MenuItemType[] = [
   { id: 1, title: 'اطلاعات پایه', icon: <ViewComfyIcon fontSize='large' />, subMenu: [{ id: 1, title: 'دستگاه', icon: <CableIcon fontSize='medium' color='inherit' />, href: '/device' }, { id: 2, title: 'سرویس', icon: <ReceiptLongIcon fontSize='medium' color='inherit' />, href: '/service' }, { id: 6, title: 'ایراد', icon: <BugReportIcon fontSize='medium' color='inherit' />, href: '/problem' }] },
-  { id: 2, title: 'عملیات', icon: <SelectAllIcon fontSize='large' />, subMenu: [{ id: 3, title: 'اعلان', icon: <NotificationsIcon fontSize='medium' color='inherit' />, href: '/notice' }, { id: 4, title: 'دستورکار', icon: <VerticalSplitIcon fontSize='medium' color='inherit' />, href: '/workOrder' }, { id: 5, title: 'عملکرد', icon: <WorkHistoryIcon fontSize='medium' color='inherit' />, href: '/action' }] }
+  { id: 2, title: 'عملیات', icon: <SelectAllIcon fontSize='large' />, subMenu: [{ id: 3, title: 'اعلان', icon: <NotificationsIcon fontSize='medium' color='inherit' />, href: '/notice' }, { id: 4, title: 'دستورکار', icon: <VerticalSplitIcon fontSize='medium' color='inherit' />, href: '/workorder' }, { id: 5, title: 'عملکرد', icon: <WorkHistoryIcon fontSize='medium' color='inherit' />, href: '/action' }] }
 ]
 
 const DataTableOptions = {
@@ -206,9 +206,10 @@ const ProblemTableColumns: MUIDataTableColumn[] = [
 ]
 
 const NoticeData: NoticeType[] = [
-  { id: 1, idDevice: 2, noticeDate: '1402/01/12', description: 'تست', problem: [{ id: 1, title: 'باز شدن پیچ' }] },
-  { id: 2, idDevice: 3, noticeDate: '1402/02/13', problem: [{ id: 1, title: 'باز شدن پیچ' }, { id: 3, title: 'قطع سیم برق' }] },
+  { id: 1, device: { id: 2, deviceCode: '12', deviceName: 'سنگ شکن واحد دو' }, noticeDate: '1402/01/12', description: 'تست', problem: [{ id: 1, title: 'باز شدن پیچ' }] },
+  { id: 2, device: { id: 3, deviceCode: '21', deviceName: 'آسیاب واحد یک', }, noticeDate: '1402/02/13', problem: [{ id: 1, title: 'باز شدن پیچ' }, { id: 3, title: 'قطع سیم برق' }] },
 ]
+
 const ListNoticeData: ListNoticeType[] = [
   { id: 1, deviceName: 'سنگ شکن واحد دو', noticeDate: '1402/01/12', description: 'تست' },
   { id: 2, deviceName: 'آسیاب واحد یک', noticeDate: '1402/02/13' },

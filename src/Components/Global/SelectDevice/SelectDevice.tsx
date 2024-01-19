@@ -6,12 +6,15 @@ import { ListDeviceNameType } from "../../../Types/BaseInfoType";
 
 export default function SelectDevice({ value, selectedDevice }: { value:ListDeviceNameType, selectedDevice: (idDevice: number) => void }): React.JSX.Element {
   const [device, setDevice] = useState<ListDeviceNameType>(value);
+
   const handleSelectDevice = (device: ListDeviceNameType | null) => {
     device && setDevice(device);
     device && selectedDevice(device.id);
   }
 
   useEffect(()=> {
+    // console.log(value);
+    
     setDevice(value);
   }, [value])
 

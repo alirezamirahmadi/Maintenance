@@ -1,8 +1,8 @@
-import { ProblemType } from "./BaseInfoType"
+import { ProblemType, ListDeviceNameType } from "./BaseInfoType"
 
 type NoticeType = {
   id:number,
-  idDevice:number,
+  device:ListDeviceNameType,
   noticeDate:string,
   description?:string,
   problem:ProblemType[],
@@ -14,6 +14,8 @@ type ListNoticeType = {
   noticeDate:string,
   description?:string,
 }
+
+
 
 
 export type {NoticeType, ListNoticeType}

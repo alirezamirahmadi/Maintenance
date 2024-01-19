@@ -49,7 +49,7 @@ export default function Notice(): React.JSX.Element {
 
   useEffect(() => {
     if (notice) {
-      let tempDevice = listDeviceNameData.find(device => device.id === notice.idDevice);
+      let tempDevice = listDeviceNameData.find(device => device.id === notice.device.id);
       tempDevice && setDevice(tempDevice);
       setNoticeDate(notice.noticeDate);
       setProblem(notice.problem);
