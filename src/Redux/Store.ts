@@ -6,6 +6,7 @@ import BOMReducer from './Reducer/BOMReducer';
 import ServiceReducer from './Reducer/ServiceReducer';
 import ProblemReducer from './Reducer/ProblemReducer';
 import NoticeReducer from './Reducer/NoticeReducer';
+import WorkOrderReducer from './Reducer/WorkOrderReducer';
 
 const store = configureStore({
   reducer: {
@@ -15,6 +16,7 @@ const store = configureStore({
     service:ServiceReducer,
     problem:ProblemReducer,
     notice:NoticeReducer,
+    workorder:WorkOrderReducer,
   }
 })
 

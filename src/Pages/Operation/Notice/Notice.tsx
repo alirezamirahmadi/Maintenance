@@ -31,7 +31,7 @@ export default function Notice(): React.JSX.Element {
   const [device, setDevice] = useState<ListDeviceNameType>(listDeviceNameData[0]);
   const [problem, setProblem] = useState<ProblemType[]>([]);
   const [description, setDescription] = useState<string>('');
-  const [noticeDate, setNoticeDate] = useState<Value>(new Date());
+  const [noticeDate, setNoticeDate] = useState<Value>();
   const noticeParams = useParams();
   const navigate = useNavigate();
   const theme = useTheme();
@@ -43,14 +43,13 @@ export default function Notice(): React.JSX.Element {
     navigate(`/notice/${rowData[0]}`);
     setTabIndex('1');
   }
-  const handleSelectedDevice = (idDevice:number) => {
-    
+  const handleSelectedDevice = (idDevice: number) => {
+
   }
 
   useEffect(() => {
     if (notice) {
-      let tempDevice = listDeviceNameData.find(device => device.id === notice.device.id);
-      tempDevice && setDevice(tempDevice);
+      setDevice(notice.device);
       setNoticeDate(notice.noticeDate);
       setProblem(notice.problem);
       setDescription(notice.description ? notice.description : '');
@@ -67,7 +66,7 @@ export default function Notice(): React.JSX.Element {
     <>
       <TabContext value={tabIndex}>
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-          <TabList onChange={handleChangeTab} aria-label="lab API tabs example">
+          <TabList onChange={handleChangeTab} aria-label="notice">
             <Tab label="اطلاعات" value="1" />
             <Tab label="فهرست" value="2" />
           </TabList>
@@ -75,8 +74,12 @@ export default function Notice(): React.JSX.Element {
         <TabPanel value="1">
           <BorderOne title="اعلان">
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-5">
-              <SelectDevice value={device} selectedDevice={handleSelectedDevice}/>
-              <DatePicker calendar={persian} locale={persian_fa} calendarPosition="bottom-right" value={noticeDate} onChange={setNoticeDate} className={theme.palette.mode === 'dark' ? 'bg-dark' : ''} style={{ backgroundColor: theme.palette.background.default, height: '40px', direction: 'ltr', width:'100%' }} />
+              <SelectDevice value={device} selectedDevice={handleSelectedDevice} />
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-5 mt-4">
+              <DatePicker
+                id="notice-date" calendar={persian} locale={persian_fa} calendarPosition="bottom-right" value={noticeDate} onChange={setNoticeDate} className={theme.palette.mode === 'dark' ? 'bg-dark' : ''} style={{ backgroundColor: theme.palette.background.default, height: '40px', width: '100%' }}
+                render={(value, openCalendar) => { return (<TextField variant="outlined" size="small" label='تاریخ' value={value} onClick={openCalendar}></TextField>) }} />
               <TextField variant="outlined" size="small" value={description} onChange={event => setDescription(event.target.value)} label='توضیحات'></TextField>
             </div>
           </BorderOne>

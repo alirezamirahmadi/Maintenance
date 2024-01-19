@@ -13,8 +13,6 @@ export default function SelectDevice({ value, selectedDevice }: { value:ListDevi
   }
 
   useEffect(()=> {
-    // console.log(value);
-    
     setDevice(value);
   }, [value])
 
@@ -22,6 +20,7 @@ export default function SelectDevice({ value, selectedDevice }: { value:ListDevi
     <>
       <Autocomplete id="device" options={listDeviceNameData} autoHighlight value={device}
         onChange={(event: any, newValue: ListDeviceNameType | null) => handleSelectDevice(newValue)}
+        isOptionEqualToValue={(option, value) => option.id === value.id}
         getOptionKey={(option) => option.id}
         getOptionLabel={(option) => option.deviceName + ' (' + option.deviceCode + ')'}
         renderOption={(props, option) => (

@@ -10,7 +10,7 @@ import BugReportIcon from '@mui/icons-material/BugReport';
 
 import { MenuItemType } from '../Types/BasicType';
 import { DeviceType, BOMType, ServiceType, ListServiceType, ProblemType, ListDeviceNameType } from '../Types/BaseInfoType';
-import { NoticeType, ListNoticeType } from '../Types/OperationType';
+import { NoticeType, ListNoticeType, WorkOrderType, ListWorkOrderType } from '../Types/OperationType';
 
 const MenuItemData: MenuItemType[] = [
   { id: 1, title: 'اطلاعات پایه', icon: <ViewComfyIcon fontSize='large' />, subMenu: [{ id: 1, title: 'دستگاه', icon: <CableIcon fontSize='medium' color='inherit' />, href: '/device' }, { id: 2, title: 'سرویس', icon: <ReceiptLongIcon fontSize='medium' color='inherit' />, href: '/service' }, { id: 6, title: 'ایراد', icon: <BugReportIcon fontSize='medium' color='inherit' />, href: '/problem' }] },
@@ -222,8 +222,28 @@ const NoticeTableColumns: MUIDataTableColumn[] = [
   { name: 'description', label: 'توضیحات', options: { filter: true, sort: true } },
 ]
 
+const WorkOrderData: WorkOrderType[] = [
+  { id: 1, device: { id: 2, deviceCode: '12', deviceName: 'سنگ شکن واحد دو' }, service: { id: 1, title: 'تعمیرات اساسی', kind: 'تعمیراتی' }, startDate: '1402/01/02', endDate: '1402/02/03', description: 'test', },
+  { id: 2, device: { id: 3, deviceCode: '21', deviceName: 'آسیاب واحد یک', }, service: { id: 3, title: 'بازدید', kind: 'پیشگیرانه', period: 'ساعت', duration: 10, }, startDate: '1402/05/02', endDate: '1402/06/03', },
+]
+
+const ListWorkOrderData: ListWorkOrderType[] = [
+  { id: 1, device: 'سنگ شکن واحد دو' , service: 'تعمیرات اساسی', startDate: '1402/01/02', endDate: '1402/02/03', description: 'test', },
+  { id: 2, device: 'آسیاب واحد یک', service: 'بازدید', startDate: '1402/05/02', endDate: '1402/06/03', },
+]
+
+const WorkOrderTableColumns: MUIDataTableColumn[] = [
+  { name: 'id', label: 'کد', options: { filter: true, sort: true, display: false } },
+  { name: 'device', label: 'نام دستگاه', options: { filter: true, sort: true, } },
+  { name: 'service', label: 'سرویس', options: { filter: true, sort: true, } },
+  { name: 'startDate', label: 'تاریخ شروع', options: { filter: true, sort: true } },
+  { name: 'endDate', label: 'تاریخ پایان', options: { filter: true, sort: true } },
+  { name: 'description', label: 'توضیحات', options: { filter: true, sort: true } },
+]
+
+
 export {
   MenuItemData, DeviceData, listDeviceNameData, BOMData, BOMTableColumns, ServiceData, ListServiceData,
   ActivityTableColumns, ServiceTableColumns, ProblemData, ProblemTableColumns, DataTableOptions,
-  NoticeData, ListNoticeData, NoticeTableColumns
+  NoticeData, ListNoticeData, NoticeTableColumns, WorkOrderData, ListWorkOrderData, WorkOrderTableColumns
 }

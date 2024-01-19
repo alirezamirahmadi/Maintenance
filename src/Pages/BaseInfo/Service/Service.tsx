@@ -57,7 +57,7 @@ export default function Service(): React.JSX.Element {
     <>
       <TabContext value={tabIndex}>
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-          <TabList onChange={handleChangeTab} aria-label="lab API tabs example">
+          <TabList onChange={handleChangeTab} aria-label="service">
             <Tab label="اطلاعات" value="1" />
             <Tab label="فهرست" value="2" />
           </TabList>

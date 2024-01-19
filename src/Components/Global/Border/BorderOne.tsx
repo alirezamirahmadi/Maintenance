@@ -5,7 +5,7 @@ export default function BorderOne(props: BorderOneProp) {
 
   return (
     <>
-      <div className={("w-11/12 p-1 my-6 mx-auto border shadow-lg rounded-xl ") + props.className} style={{ direction: 'rtl' }}>
+      <div className={("w-11/12 pb-4 px-3 my-6 mx-auto border shadow-lg rounded-xl ") + props.className} style={{ direction: 'rtl' }}>
         <div dir="rtl" className="flex justify-center mt-2">
           <Typography variant='h6' color='text.primary'>{props.title}</Typography>
         </div>
