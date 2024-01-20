@@ -19,6 +19,7 @@ const routes = (isLogin:boolean) => [
   {path:'/workorder', element:<WorkOrder/>},
   {path:'/workorder/:idWorkOrder', element:<WorkOrder/>},
   {path:'/action', element:<Action/>},
+  {path:'/action/:idAction', element:<Action/>},
 ]
 
 export default routes;

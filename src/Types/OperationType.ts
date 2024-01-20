@@ -1,4 +1,5 @@
-import { ProblemType, ListDeviceNameType, ListServiceType } from "./BaseInfoType"
+import { TypedStartListening } from "@reduxjs/toolkit"
+import { ProblemType, ListDeviceNameType, ListServiceType, ActivityType } from "./BaseInfoType"
 
 type NoticeType = {
   id: number,
@@ -23,6 +24,7 @@ type WorkOrderType = {
   endDate: string,
   description?: string,
 }
+
 type ListWorkOrderType = {
   id: number,
   device: string,
@@ -32,6 +34,39 @@ type ListWorkOrderType = {
   description?: string,
 }
 
+type ActionType = {
+  id: number,
+  workorder:WorkOrderType,
+  startDate: string,
+  endDate: string,
+  activityResult:ActivityResultType[],
+  description?: string,
+}
 
+type ListActionType = {
+  id: number,
+  idWorkOrder:number,
+  device: string,
+  service: string,
+  startDate: string,
+  endDate: string,
+  description?: string,
+}
 
-export type { NoticeType, ListNoticeType, WorkOrderType, ListWorkOrderType }
+type ActivityResultType = {
+  id: number,
+  activity:ActivityType,
+  isDo:boolean,
+  description?: string,
+}
+
+type ListActivityResultType = {
+  id: number,
+  idAction:number,
+  activity:string,
+  isDo:boolean,
+  description?: string,
+}
+
+export type { NoticeType, ListNoticeType, WorkOrderType, ListWorkOrderType, ActionType, ActivityResultType, 
+  ListActionType, ListActivityResultType }

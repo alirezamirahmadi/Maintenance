@@ -9,8 +9,11 @@ import WorkHistoryIcon from '@mui/icons-material/WorkHistory';
 import BugReportIcon from '@mui/icons-material/BugReport';
 
 import { MenuItemType } from '../Types/BasicType';
-import { DeviceType, BOMType, ServiceType, ListServiceType, ProblemType, ListDeviceNameType } from '../Types/BaseInfoType';
-import { NoticeType, ListNoticeType, WorkOrderType, ListWorkOrderType } from '../Types/OperationType';
+import { DeviceType, BOMType, ServiceType, ListServiceType, ProblemType } from '../Types/BaseInfoType';
+import {
+  NoticeType, ListNoticeType, WorkOrderType, ListWorkOrderType, ActionType, ListActionType,
+  ListActivityResultType
+} from '../Types/OperationType';
 
 const MenuItemData: MenuItemType[] = [
   { id: 1, title: 'اطلاعات پایه', icon: <ViewComfyIcon fontSize='large' />, subMenu: [{ id: 1, title: 'دستگاه', icon: <CableIcon fontSize='medium' color='inherit' />, href: '/device' }, { id: 2, title: 'سرویس', icon: <ReceiptLongIcon fontSize='medium' color='inherit' />, href: '/service' }, { id: 6, title: 'ایراد', icon: <BugReportIcon fontSize='medium' color='inherit' />, href: '/problem' }] },
@@ -228,7 +231,7 @@ const WorkOrderData: WorkOrderType[] = [
 ]
 
 const ListWorkOrderData: ListWorkOrderType[] = [
-  { id: 1, device: 'سنگ شکن واحد دو' , service: 'تعمیرات اساسی', startDate: '1402/01/02', endDate: '1402/02/03', description: 'test', },
+  { id: 1, device: 'سنگ شکن واحد دو', service: 'تعمیرات اساسی', startDate: '1402/01/02', endDate: '1402/02/03', description: 'test', },
   { id: 2, device: 'آسیاب واحد یک', service: 'بازدید', startDate: '1402/05/02', endDate: '1402/06/03', },
 ]
 
@@ -241,9 +244,71 @@ const WorkOrderTableColumns: MUIDataTableColumn[] = [
   { name: 'description', label: 'توضیحات', options: { filter: true, sort: true } },
 ]
 
+const ActionData: ActionType[] = [
+  {
+    id: 1,
+    workorder: { id: 1, device: { id: 2, deviceCode: '12', deviceName: 'سنگ شکن واحد دو' }, service: { id: 1, title: 'تعمیرات اساسی', kind: 'تعمیراتی' }, startDate: '1402/01/02', endDate: '1402/02/03', description: 'test', },
+    startDate: '1402/01/03', endDate: '1402/02/03',
+    activityResult:
+      [
+        { id: 1, activity: { id: 1, title: 'تعمیر1' }, isDo: true, },
+        { id: 2, activity: { id: 2, title: 'تعمیر2' }, isDo: false, description: 'test1', },
+        { id: 3, activity: { id: 3, title: 'تعویض' }, isDo: true, description: 'test2', },
+      ],
+    description: 'temp',
+  },
+  {
+    id: 2,
+    workorder: { id: 2, device: { id: 3, deviceCode: '21', deviceName: 'آسیاب واحد یک', }, service: { id: 3, title: 'بازدید', kind: 'پیشگیرانه', period: 'ساعت', duration: 10, }, startDate: '1402/05/02', endDate: '1402/06/03', },
+    startDate: '1402/05/03', endDate: '1402/06/03',
+    activityResult:
+      [
+        { id: 4, activity: { id: 6, title: 'تعمیر1' }, isDo: true, description: 'test3', },
+        { id: 5, activity: { id: 7, title: 'تعمیر2' }, isDo: true, },
+        { id: 6, activity: { id: 8, title: 'تعمیر3' }, isDo: false, description: 'test4', },
+        { id: 7, activity: { id: 9, title: 'تعویض1' }, isDo: false, },
+      ],
+  },
+]
+
+const ListActionData: ListActionType[] = [
+  { id: 1, idWorkOrder: 1, device: 'سنگ شکن واحد دو', service: 'تعمیرات اساسی', startDate: '1402/01/02', endDate: '1402/02/03', description: 'test', },
+  { id: 2, idWorkOrder: 2, device: 'آسیاب واحد یک', service: 'بازدید', startDate: '1402/05/02', endDate: '1402/06/03', },
+]
+
+const ActionTableColumns: MUIDataTableColumn[] = [
+  { name: 'id', label: 'کد', options: { filter: true, sort: true, display: false } },
+  { name: 'idWorkOrder', label: 'شماره دستورکار', options: { filter: true, sort: true, } },
+  { name: 'device', label: 'نام دستگاه', options: { filter: true, sort: true, } },
+  { name: 'service', label: 'سرویس', options: { filter: true, sort: true, } },
+  { name: 'startDate', label: 'تاریخ شروع', options: { filter: true, sort: true } },
+  { name: 'endDate', label: 'تاریخ پایان', options: { filter: true, sort: true } },
+  { name: 'description', label: 'توضیحات', options: { filter: true, sort: true } },
+]
+
+const ActivityResultTableColumns: MUIDataTableColumn[] = [
+  { name: 'id', label: 'کد', options: { filter: true, sort: true, display: false } },
+  { name: 'idAction', label: 'کد عملکرد', options: { filter: true, sort: true, display: false } },
+  { name: 'activity', label: 'فعالیت', options: { filter: true, sort: true, } },
+  { name: 'isDo', label: 'انجام شد؟', options: { filter: true, sort: true, } },
+  { name: 'description', label: 'توضیحات', options: { filter: true, sort: true } },
+]
+
+const ListActivityResultData:ListActivityResultType[] = [
+  { id: 1, idAction:1, activity: 'تعمیر1', isDo: true, },
+  { id: 2, idAction:1, activity: 'تعمیر2', isDo: false, description: 'test1', },
+  { id: 3, idAction:1, activity: 'تعویض', isDo: true, description: 'test2', },
+  { id: 4, idAction:2, activity: 'تعمیر1', isDo: true, description: 'test3', },
+  { id: 5, idAction:2, activity: 'تعمیر2', isDo: true, },
+  { id: 6, idAction:2, activity: 'تعمیر3', isDo: false, description: 'test4', },
+  { id: 7, idAction:2, activity: 'تعویض1', isDo: false, },
+]
+
+
 
 export {
   MenuItemData, DeviceData, listDeviceNameData, BOMData, BOMTableColumns, ServiceData, ListServiceData,
   ActivityTableColumns, ServiceTableColumns, ProblemData, ProblemTableColumns, DataTableOptions,
-  NoticeData, ListNoticeData, NoticeTableColumns, WorkOrderData, ListWorkOrderData, WorkOrderTableColumns
+  NoticeData, ListNoticeData, NoticeTableColumns, WorkOrderData, ListWorkOrderData, WorkOrderTableColumns,
+  ActionData, ListActionData, ActionTableColumns, ActivityResultTableColumns, ListActivityResultData
 }
