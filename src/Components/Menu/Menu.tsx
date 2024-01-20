@@ -160,7 +160,7 @@ export default function Menu({ children }: { children: React.ReactNode }): React
                 {
                   menuItem.subMenu &&
                   <Collapse in={isCollapseOpen(menuItem.id)} timeout="auto" unmountOnExit>
-                    <List component="div" disablePadding>
+                    <List component="nav" disablePadding>
                       {
                         menuItem.subMenu.map(subItem => (
                           <ListItem key={subItem.id} disablePadding sx={{ display: 'block' }}>
