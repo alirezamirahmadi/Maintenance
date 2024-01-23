@@ -1,30 +1,33 @@
-# React + TypeScript + Vite
+# <p align="center">Maintenance</p>
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<p align="center">
+<img height="30" alt="typescript" src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/typescript-colored.svg">
+<img height="30" alt="react" src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/react-colored.svg">
+<img height="30" alt="redux" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/redux/redux.png">
+<img height="30" alt="mui" src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/materialui-colored.svg">
+<img height="30" alt="tailwind" src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/tailwindcss-colored.svg">
+</p>
 
-Currently, two official plugins are available:
+<br/><br/>
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### It's a web application built on React. It comes with features like device, BOM, service, and problem in base information section. In addition notice, work order, and action in operation section.
 
-## Expanding the ESLint configuration
+<br/><br/>
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+<div align='center'>
+  <img src='./public/Image/Read me/Maintenance.png' />
+</div>
 
-- Configure the top-level `parserOptions` property like this:
+# Features:
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+### Base Information
+- Device: Introduce a device in devices tree
+- BOM (bill of materials): Introduce several BOM for any device
+- Service: Create EM/PM services and connect to devices
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+### Operation
+- Notice: Create a notice document to start an emergency maintenance(EM)
+- Work Order: Create work order document to continue EM  or start a preventive maintenance (PM)
+- Action: Explain actions on device after finishing EM or PM
+
+### Dark mode
