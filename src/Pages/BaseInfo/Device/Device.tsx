@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
 import { Typography, FormControlLabel, Checkbox, TextField } from "@mui/material";
-// import { DataGrid } from '@mui/x-data-grid';
 import MUIDataTable from "mui-datatables";
 import { useParams } from "react-router";
 import { CacheProvider } from "@emotion/react";
-import { useSelector } from "react-redux";
-import type { RootState } from '../../../Redux/Store';
+import { useDispatch, useSelector } from "react-redux";
+import type { RootState, AppDispatch } from '../../../Redux/Store';
 
+import { getDevicesFromServer } from "../../../Redux/Reducer/DeviceReducer";
+import { getBOMFromServer } from "../../../Redux/Reducer/BOMReducer";
 import BorderOne from "../../../Components/Global/Border/BorderOne"
 import { BOMType, DeviceType } from "../../../Types/BaseInfoType";
 import DeviceTree from "./DeviceTree";
@@ -16,6 +17,7 @@ import { DataTableOptions } from "../../../Utils/Datas";
 
 export default function Device(): React.JSX.Element {
   const deviceParams = useParams();
+  const dispatch: AppDispatch = useDispatch();
   const devices = useSelector((state: RootState) => state.device);
   const BOMs = useSelector((state: RootState) => state.BOM);
   const [deviceCode, setDeviceCode] = useState<string>('');
@@ -30,6 +32,10 @@ export default function Device(): React.JSX.Element {
     device.subDevice?.map(subdevice => findDevice(subdevice, idDevice));
   }
  
+  useEffect(()=>{
+    dispatch(getDevicesFromServer());
+    dispatch(getBOMFromServer());
+  }, [])
   useEffect(() => {
     findDevice(devices, deviceParams.idDevice ? deviceParams.idDevice : '-1');
   }, [deviceParams])

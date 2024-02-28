@@ -11,9 +11,10 @@ import persian_fa from "react-date-object/locales/persian_fa";
 import type { Value } from "react-multi-date-picker";
 import "react-multi-date-picker/styles/backgrounds/bg-dark.css"
 
-import { useSelector } from "react-redux";
-import type { RootState } from '../../../Redux/Store';
+import { useDispatch, useSelector } from "react-redux";
+import type { RootState, AppDispatch } from '../../../Redux/Store';
 
+import { getWorkOrdersFromServer } from "../../../Redux/Reducer/WorkOrderReducer";
 import BorderOne from "../../../Components/Global/Border/BorderOne";
 import { WorkOrderType } from "../../../Types/OperationType";
 import { cacheDataTable } from "../../../Theme";
@@ -23,6 +24,7 @@ import { ListWorkOrderData, DataTableOptions, WorkOrderTableColumns, listDeviceN
 import { ListServiceType, ListDeviceNameType } from "../../../Types/BaseInfoType";
 
 export default function WorkOrder(): React.JSX.Element {
+  const dispatch: AppDispatch = useDispatch();
   const workorders = useSelector((state: RootState) => state.workorder);
   const [tabIndex, setTabIndex] = React.useState('1');
   const [workorder, setWorkOrder] = useState<WorkOrderType>();
@@ -51,6 +53,10 @@ export default function WorkOrder(): React.JSX.Element {
   const handleSelectedService = (service: ListServiceType) => {
 
   }
+
+  useEffect(()=>{
+    dispatch(getWorkOrdersFromServer());
+  }, [])
 
   useEffect(() => {
     if (workorder) {

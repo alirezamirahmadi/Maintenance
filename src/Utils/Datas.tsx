@@ -177,6 +177,156 @@ const ServiceData: ServiceType[] = [
       { id: 10, title: 'تعویض2' },
     ]
   },
+  {
+    id: 5, title: 'بازدید اساسی', kind: { id: 2, text: 'پیشگیرانه' }, period: { id: 2, text: 'روز' }, duration: 1, activity: [
+      { id: 10, title: 'تعویض2' },
+    ]
+  },
+  {
+    id: 6, title: 'بازدید اساسی', kind: { id: 2, text: 'پیشگیرانه' }, period: { id: 2, text: 'روز' }, duration: 1, activity: [
+      { id: 10, title: 'تعویض2' },
+    ]
+  },
+  {
+    id: 7, title: 'بازدید اساسی', kind: { id: 2, text: 'پیشگیرانه' }, period: { id: 2, text: 'روز' }, duration: 1, activity: [
+      { id: 10, title: 'تعویض2' },
+    ]
+  },
+  {
+    id: 4, title: 'بازدید اساسی', kind: { id: 2, text: 'پیشگیرانه' }, period: { id: 2, text: 'روز' }, duration: 1, activity: [
+      { id: 10, title: 'تعویض2' },
+    ]
+  },
+  {
+    id: 4, title: 'بازدید اساسی', kind: { id: 2, text: 'پیشگیرانه' }, period: { id: 2, text: 'روز' }, duration: 1, activity: [
+      { id: 10, title: 'تعویض2' },
+    ]
+  },
+  {
+    id: 4, title: 'بازدید اساسی', kind: { id: 2, text: 'پیشگیرانه' }, period: { id: 2, text: 'روز' }, duration: 1, activity: [
+      { id: 10, title: 'تعویض2' },
+    ]
+  },
+  {
+    id: 4, title: 'بازدید اساسی', kind: { id: 2, text: 'پیشگیرانه' }, period: { id: 2, text: 'روز' }, duration: 1, activity: [
+      { id: 10, title: 'تعویض2' },
+    ]
+  },
+  {
+    id: 4, title: 'بازدید اساسی', kind: { id: 2, text: 'پیشگیرانه' }, period: { id: 2, text: 'روز' }, duration: 1, activity: [
+      { id: 10, title: 'تعویض2' },
+    ]
+  },
+  {
+    id: 4, title: 'بازدید اساسی', kind: { id: 2, text: 'پیشگیرانه' }, period: { id: 2, text: 'روز' }, duration: 1, activity: [
+      { id: 10, title: 'تعویض2' },
+    ]
+  },
+  {
+    id: 4, title: 'بازدید اساسی', kind: { id: 2, text: 'پیشگیرانه' }, period: { id: 2, text: 'روز' }, duration: 1, activity: [
+      { id: 10, title: 'تعویض2' },
+    ]
+  },
+  {
+    id: 4, title: 'بازدید اساسی', kind: { id: 2, text: 'پیشگیرانه' }, period: { id: 2, text: 'روز' }, duration: 1, activity: [
+      { id: 10, title: 'تعویض2' },
+    ]
+  },
+  {
+    id: 4, title: 'بازدید اساسی', kind: { id: 2, text: 'پیشگیرانه' }, period: { id: 2, text: 'روز' }, duration: 1, activity: [
+      { id: 10, title: 'تعویض2' },
+    ]
+  },
+  {
+    id: 4, title: 'بازدید اساسی', kind: { id: 2, text: 'پیشگیرانه' }, period: { id: 2, text: 'روز' }, duration: 1, activity: [
+      { id: 10, title: 'تعویض2' },
+    ]
+  },
+  {
+    id: 4, title: 'بازدید اساسی', kind: { id: 2, text: 'پیشگیرانه' }, period: { id: 2, text: 'روز' }, duration: 1, activity: [
+      { id: 10, title: 'تعویض2' },
+    ]
+  },
+  {
+    id: 4, title: 'بازدید اساسی', kind: { id: 2, text: 'پیشگیرانه' }, period: { id: 2, text: 'روز' }, duration: 1, activity: [
+      { id: 10, title: 'تعویض2' },
+    ]
+  },
+  {
+    id: 4, title: 'بازدید اساسی', kind: { id: 2, text: 'پیشگیرانه' }, period: { id: 2, text: 'روز' }, duration: 1, activity: [
+      { id: 10, title: 'تعویض2' },
+    ]
+  },
+  {
+    id: 4, title: 'بازدید اساسی', kind: { id: 2, text: 'پیشگیرانه' }, period: { id: 2, text: 'روز' }, duration: 1, activity: [
+      { id: 10, title: 'تعویض2' },
+    ]
+  },
+  {
+    id: 4, title: 'بازدید اساسی', kind: { id: 2, text: 'پیشگیرانه' }, period: { id: 2, text: 'روز' }, duration: 1, activity: [
+      { id: 10, title: 'تعویض2' },
+    ]
+  },
+  {
+    id: 4, title: 'بازدید اساسی', kind: { id: 2, text: 'پیشگیرانه' }, period: { id: 2, text: 'روز' }, duration: 1, activity: [
+      { id: 10, title: 'تعویض2' },
+    ]
+  },
+  {
+    id: 4, title: 'بازدید اساسی', kind: { id: 2, text: 'پیشگیرانه' }, period: { id: 2, text: 'روز' }, duration: 1, activity: [
+      { id: 10, title: 'تعویض2' },
+    ]
+  },
+  {
+    id: 4, title: 'بازدید اساسی', kind: { id: 2, text: 'پیشگیرانه' }, period: { id: 2, text: 'روز' }, duration: 1, activity: [
+      { id: 10, title: 'تعویض2' },
+    ]
+  },
+  {
+    id: 4, title: 'بازدید اساسی', kind: { id: 2, text: 'پیشگیرانه' }, period: { id: 2, text: 'روز' }, duration: 1, activity: [
+      { id: 10, title: 'تعویض2' },
+    ]
+  },
+  {
+    id: 4, title: 'بازدید اساسی', kind: { id: 2, text: 'پیشگیرانه' }, period: { id: 2, text: 'روز' }, duration: 1, activity: [
+      { id: 10, title: 'تعویض2' },
+    ]
+  },
+  {
+    id: 4, title: 'بازدید اساسی', kind: { id: 2, text: 'پیشگیرانه' }, period: { id: 2, text: 'روز' }, duration: 1, activity: [
+      { id: 10, title: 'تعویض2' },
+    ]
+  },
+  {
+    id: 4, title: 'بازدید اساسی', kind: { id: 2, text: 'پیشگیرانه' }, period: { id: 2, text: 'روز' }, duration: 1, activity: [
+      { id: 10, title: 'تعویض2' },
+    ]
+  },
+  {
+    id: 4, title: 'بازدید اساسی', kind: { id: 2, text: 'پیشگیرانه' }, period: { id: 2, text: 'روز' }, duration: 1, activity: [
+      { id: 10, title: 'تعویض2' },
+    ]
+  },
+  {
+    id: 4, title: 'بازدید اساسی', kind: { id: 2, text: 'پیشگیرانه' }, period: { id: 2, text: 'روز' }, duration: 1, activity: [
+      { id: 10, title: 'تعویض2' },
+    ]
+  },
+  {
+    id: 4, title: 'بازدید اساسی', kind: { id: 2, text: 'پیشگیرانه' }, period: { id: 2, text: 'روز' }, duration: 1, activity: [
+      { id: 10, title: 'تعویض2' },
+    ]
+  },
+  {
+    id: 4, title: 'بازدید اساسی', kind: { id: 2, text: 'پیشگیرانه' }, period: { id: 2, text: 'روز' }, duration: 1, activity: [
+      { id: 10, title: 'تعویض2' },
+    ]
+  },
+  {
+    id: 4, title: 'بازدید اساسی', kind: { id: 2, text: 'پیشگیرانه' }, period: { id: 2, text: 'روز' }, duration: 1, activity: [
+      { id: 10, title: 'تعویض2' },
+    ]
+  },
 ]
 const ListServiceData: ListServiceType[] = [
   { id: 1, title: 'تعمیرات اساسی', kind: 'تعمیراتی' },
@@ -307,8 +457,8 @@ const ListActivityResultData:ListActivityResultType[] = [
 
 
 export {
-  MenuItemData, DeviceData, listDeviceNameData, BOMData, BOMTableColumns, ServiceData, ListServiceData,
-  ActivityTableColumns, ServiceTableColumns, ProblemData, ProblemTableColumns, DataTableOptions,
-  NoticeData, ListNoticeData, NoticeTableColumns, WorkOrderData, ListWorkOrderData, WorkOrderTableColumns,
-  ActionData, ListActionData, ActionTableColumns, ActivityResultTableColumns, ListActivityResultData
+  MenuItemData, listDeviceNameData, BOMTableColumns, ListServiceData,
+  ActivityTableColumns, ServiceTableColumns, ProblemTableColumns, DataTableOptions,
+  ListNoticeData, NoticeTableColumns, ListWorkOrderData, WorkOrderTableColumns,
+  ListActionData, ActionTableColumns, ActivityResultTableColumns, ListActivityResultData
 }

@@ -11,9 +11,10 @@ import persian_fa from "react-date-object/locales/persian_fa";
 import type { Value } from "react-multi-date-picker";
 import "react-multi-date-picker/styles/backgrounds/bg-dark.css"
 
-import { useSelector } from "react-redux";
-import type { RootState } from '../../../Redux/Store';
+import { useDispatch, useSelector } from "react-redux";
+import type { RootState, AppDispatch } from '../../../Redux/Store';
 
+import { getActionsFromServer } from "../../../Redux/Reducer/ActionReducer";
 import BorderOne from "../../../Components/Global/Border/BorderOne";
 import { cacheDataTable } from "../../../Theme";
 import SelectDevice from "../../../Components/Global/SelectDevice/SelectDevice";
@@ -26,6 +27,7 @@ import { WorkOrderType, ActionType, ListActivityResultType } from "../../../Type
 import { ListServiceType, ListDeviceNameType } from "../../../Types/BaseInfoType";
 
 export default function WorkOrder(): React.JSX.Element {
+  const dispatch: AppDispatch = useDispatch();
   const actions = useSelector((state: RootState) => state.action);
   const [tabIndex, setTabIndex] = React.useState('1');
   const [action, setAction] = useState<ActionType>();
@@ -56,6 +58,10 @@ export default function WorkOrder(): React.JSX.Element {
   const handleSelectedService = (service: ListServiceType) => {
 
   }
+
+  useEffect(()=>{
+    dispatch(getActionsFromServer());
+  }, [])
 
   useEffect(() => {
     if (action) {

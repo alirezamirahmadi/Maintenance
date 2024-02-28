@@ -1,6 +1,15 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
 
 import { loginType } from '../../Types/BasicType'
+import apiRequests from "../../Services/AxiosConfig";
+
+const getLoginFromServer = createAsyncThunk(
+  'Login/getLoginFromserver',
+  async () => {
+    const result = await apiRequests.get('LoginData');
+    return result.data;
+  }
+)
 
 const slice = createSlice({
   name: 'login',
@@ -16,6 +25,9 @@ const slice = createSlice({
       user.token = '';
       user.account = undefined
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(getLoginFromServer.fulfilled, (state, action) => action.payload)
   }
 })
 
@@ -23,3 +35,7 @@ const slice = createSlice({
 export default slice.reducer;
 
 export const {login, logout} = slice.actions;
+
+export {
+  getLoginFromServer
+}

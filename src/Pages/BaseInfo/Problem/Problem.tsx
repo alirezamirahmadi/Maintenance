@@ -4,9 +4,10 @@ import { TextField, Box, Tab } from "@mui/material";
 import { TabContext, TabList, TabPanel, } from '@mui/lab';
 import MUIDataTable from "mui-datatables";
 import { CacheProvider } from "@emotion/react";
-import { useSelector } from "react-redux";
-import type { RootState } from '../../../Redux/Store';
+import { useDispatch, useSelector } from "react-redux";
+import type { RootState, AppDispatch } from '../../../Redux/Store';
 
+import { getProblemsFromServer } from "../../../Redux/Reducer/ProblemReducer";
 import BorderOne from "../../../Components/Global/Border/BorderOne";
 import { ServiceType } from "../../../Types/BaseInfoType";
 import { cacheDataTable } from "../../../Theme";
@@ -14,6 +15,7 @@ import { ProblemTableColumns } from "../../../Utils/Datas";
 import { DataTableOptions } from "../../../Utils/Datas";
 
 export default function Problem(): React.JSX.Element {
+  const dispatch: AppDispatch = useDispatch();
   const problems = useSelector((state: RootState) => state.problem);
   const [tabIndex, setTabIndex] = React.useState('1');
   const [problem, setProblem] = useState<ServiceType>();
@@ -29,6 +31,10 @@ export default function Problem(): React.JSX.Element {
     setTabIndex('1');
   }
 
+  useEffect(()=>{
+    dispatch(getProblemsFromServer());
+  }, [])
+  
   useEffect(() => {
     if (problem) {
       setTitle(problem.title);

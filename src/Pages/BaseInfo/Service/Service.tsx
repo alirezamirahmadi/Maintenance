@@ -4,9 +4,10 @@ import { TextField, Select, MenuItem, FormControl, InputLabel, Box, Tab } from "
 import { TabContext, TabList, TabPanel, } from '@mui/lab';
 import MUIDataTable from "mui-datatables";
 import { CacheProvider } from "@emotion/react";
-import { useSelector } from "react-redux";
-import type { RootState } from '../../../Redux/Store';
+import { useDispatch, useSelector } from "react-redux";
+import type { RootState, AppDispatch } from '../../../Redux/Store';
 
+import { getServicesFromServer } from "../../../Redux/Reducer/ServiceReducer";
 import BorderOne from "../../../Components/Global/Border/BorderOne";
 import { ServiceType, ActivityType } from "../../../Types/BaseInfoType";
 import { cacheDataTable } from "../../../Theme";
@@ -14,6 +15,7 @@ import { ActivityTableColumns, ServiceTableColumns, ListServiceData } from "../.
 import { DataTableOptions } from "../../../Utils/Datas";
 
 export default function Service(): React.JSX.Element {
+  const dispatch: AppDispatch = useDispatch();
   const services = useSelector((state: RootState) => state.service);
   const [tabIndex, setTabIndex] = React.useState('1');
   const [service, setService] = useState<ServiceType>();
@@ -37,6 +39,10 @@ export default function Service(): React.JSX.Element {
     setTabIndex('1');
   }
 
+  useEffect(()=>{
+    dispatch(getServicesFromServer());
+  }, [])
+  
   useEffect(() => {
     if (service) {
       setTitle(service.title);

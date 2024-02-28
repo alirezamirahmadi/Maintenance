@@ -11,9 +11,10 @@ import persian_fa from "react-date-object/locales/persian_fa";
 import type { Value } from "react-multi-date-picker";
 import "react-multi-date-picker/styles/backgrounds/bg-dark.css"
 
-import { useSelector } from "react-redux";
-import type { RootState } from '../../../Redux/Store';
+import { useDispatch, useSelector } from "react-redux";
+import type { RootState, AppDispatch } from '../../../Redux/Store';
 
+import { getNoticesFromServer } from "../../../Redux/Reducer/NoticeReducer";
 import BorderOne from "../../../Components/Global/Border/BorderOne";
 import { ProblemType } from "../../../Types/BaseInfoType";
 import { NoticeType } from "../../../Types/OperationType";
@@ -25,6 +26,7 @@ import {
 import { ListDeviceNameType } from "../../../Types/BaseInfoType";
 
 export default function Notice(): React.JSX.Element {
+  const dispatch: AppDispatch = useDispatch();
   const notices = useSelector((state: RootState) => state.notice);
   const [tabIndex, setTabIndex] = React.useState('1');
   const [notice, setNotice] = useState<NoticeType>();
@@ -46,6 +48,10 @@ export default function Notice(): React.JSX.Element {
   const handleSelectedDevice = (idDevice: number) => {
 
   }
+
+  useEffect(()=>{
+    dispatch(getNoticesFromServer());
+  }, [])
 
   useEffect(() => {
     if (notice) {
