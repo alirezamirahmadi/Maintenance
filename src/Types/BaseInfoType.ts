@@ -1,5 +1,5 @@
 type DeviceType = {
-  id: number,
+  id?: number,
   deviceName: string,
   deviceCode: string,
   deviceNo: string,

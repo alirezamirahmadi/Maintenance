@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Typography, FormControlLabel, Checkbox, TextField } from "@mui/material";
 import MUIDataTable from "mui-datatables";
-import { useParams } from "react-router";
+import { useParams, useNavigate } from "react-router";
 import { CacheProvider } from "@emotion/react";
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState, AppDispatch } from '../../../Redux/Store';
@@ -9,13 +9,16 @@ import type { RootState, AppDispatch } from '../../../Redux/Store';
 import { getDevice, postDevice, putDevice, deleteDevice } from "../../../Redux/Reducer/DeviceReducer";
 import { getBOMFromServer } from "../../../Redux/Reducer/BOMReducer";
 import BorderOne from "../../../Components/Global/Border/BorderOne"
-import { BOMType, DeviceType } from "../../../Types/BaseInfoType";
+import type { BOMType, DeviceType } from "../../../Types/BaseInfoType";
 import DeviceTree from "./DeviceTree";
 import { BOMTableColumns } from "../../../Utils/Datas";
 import { cacheDataTable } from "../../../Theme";
 import { DataTableOptions } from "../../../Utils/Datas";
+import MutationMenu from "../../../Components/Global/mutationMenu/MutationMenu";
 
 export default function Device(): React.JSX.Element {
+
+  const navigate = useNavigate();
   const deviceParams = useParams();
   const dispatch: AppDispatch = useDispatch();
   const devices = useSelector((state: RootState) => state.device);
@@ -28,14 +31,33 @@ export default function Device(): React.JSX.Element {
   const [selectedDevice, setSelectedDevice] = useState<DeviceType>();
 
   const findDevice = (device: DeviceType, idDevice: string) => {
-    if (device.id.toString() === idDevice) { setSelectedDevice(device) }
+    if (device.id?.toString() === idDevice) { setSelectedDevice(device) }
     device.subDevice?.map(subdevice => findDevice(subdevice, idDevice));
   }
- 
-  useEffect(()=>{
+
+  const saveDevice = () => {
+    dispatch(selectedDevice ? putDevice(selectedDevice) : postDevice({ deviceCode, deviceName, deviceNo, active: deviceActive }))
+  }
+
+  const handleMutateAction = (action: string) => {
+    switch (action) {
+      case 'new':
+        navigate('/device')
+        break;
+      case 'save':
+        saveDevice();
+        break;
+      case 'delete':
+        dispatch(deleteDevice(selectedDevice?.id ? selectedDevice?.id : 0))
+        break;
+    }
+  }
+
+  useEffect(() => {
     dispatch(getDevice());
     dispatch(getBOMFromServer());
   }, [])
+
   useEffect(() => {
     findDevice(devices, deviceParams.idDevice ? deviceParams.idDevice : '-1');
   }, [deviceParams])
@@ -58,7 +80,10 @@ export default function Device(): React.JSX.Element {
           <DeviceTree deviceTree={devices} />
         </BorderOne>
         <div className="w-full">
-          <BorderOne title="مشخصات دستگاه" className="">
+          <BorderOne title="مشخصات دستگاه" className="relative">
+            <div className="absolute top-1">
+              <MutationMenu handleAction={handleMutateAction} />
+            </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-5">
               <TextField value={deviceCode} onChange={event => setDeviceCode(event.target.value)} sx={{ mb: 1 }} variant="outlined" label={<Typography variant="body2" >کد دستگاه</Typography>} size="small" />
               <TextField value={deviceName} onChange={event => setDeviceName(event.target.value)} sx={{ mb: 1 }} variant="outlined" label={<Typography variant="body2" >نام دستگاه</Typography>} size="small" />

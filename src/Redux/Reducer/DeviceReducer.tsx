@@ -23,7 +23,7 @@ const putDevice = createAsyncThunk(
 
 const deleteDevice = createAsyncThunk(
   'device/delete',
-  async (deviceId: string) => { await apiRequests.delete(`DeviceData/${deviceId}`) }
+  async (deviceId: number) => { await apiRequests.delete(`DeviceData/${deviceId}`) }
 )
 
 const slice = createSlice({
