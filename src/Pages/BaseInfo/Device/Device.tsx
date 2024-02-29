@@ -6,7 +6,7 @@ import { CacheProvider } from "@emotion/react";
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState, AppDispatch } from '../../../Redux/Store';
 
-import { getDevicesFromServer } from "../../../Redux/Reducer/DeviceReducer";
+import { getDevice, postDevice, putDevice, deleteDevice } from "../../../Redux/Reducer/DeviceReducer";
 import { getBOMFromServer } from "../../../Redux/Reducer/BOMReducer";
 import BorderOne from "../../../Components/Global/Border/BorderOne"
 import { BOMType, DeviceType } from "../../../Types/BaseInfoType";
@@ -33,7 +33,7 @@ export default function Device(): React.JSX.Element {
   }
  
   useEffect(()=>{
-    dispatch(getDevicesFromServer());
+    dispatch(getDevice());
     dispatch(getBOMFromServer());
   }, [])
   useEffect(() => {
