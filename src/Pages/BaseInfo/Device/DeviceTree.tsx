@@ -20,8 +20,8 @@ export default function DeviceTree({ deviceTree }: { deviceTree: DeviceType }) {
         defaultExpandIcon={<PlusSquare />}
         defaultEndIcon={<CloseSquare />}
       >
-        <StyledTreeItem nodeId={deviceTree.id.toString()} label={
-          <Typography onClick={() => handleLoadDevice(deviceTree.id)} variant="body1" color={deviceParams.idDevice === deviceTree.id.toString() ? 'primary' :'text.primary'}>{deviceTree.deviceName}</Typography>
+        <StyledTreeItem nodeId={deviceTree.id?.toString() ?? ''} label={
+          <Typography onClick={() => handleLoadDevice(deviceTree.id ?? 0)} variant="body1" color={deviceParams.idDevice === deviceTree.id?.toString() ? 'primary' :'text.primary'}>{deviceTree.deviceName}</Typography>
         }>
           {
             deviceTree?.subDevice?.map((child) => {

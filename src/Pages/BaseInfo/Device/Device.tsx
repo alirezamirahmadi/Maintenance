@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import type { RootState, AppDispatch } from '../../../Redux/Store';
 
 import { getDevice, postDevice, putDevice, deleteDevice } from "../../../Redux/Reducer/DeviceReducer";
-import { getBOMFromServer } from "../../../Redux/Reducer/BOMReducer";
+import { getBOM } from "../../../Redux/Reducer/BOMReducer";
 import BorderOne from "../../../Components/Global/Border/BorderOne"
 import type { BOMType, DeviceType } from "../../../Types/BaseInfoType";
 import DeviceTree from "./DeviceTree";
@@ -55,11 +55,11 @@ export default function Device(): React.JSX.Element {
 
   useEffect(() => {
     dispatch(getDevice());
-    dispatch(getBOMFromServer());
+    dispatch(getBOM());
   }, [])
 
   useEffect(() => {
-    findDevice(devices, deviceParams.idDevice ? deviceParams.idDevice : '-1');
+    deviceParams.idDevice ? findDevice(devices, deviceParams.idDevice) : setSelectedDevice(undefined);
   }, [deviceParams])
 
   useEffect(() => {

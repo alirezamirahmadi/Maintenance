@@ -28,7 +28,7 @@ const deleteDevice = createAsyncThunk(
 
 const slice = createSlice({
   name: 'device',
-  initialState: { id: 0, deviceName: '', deviceCode: '', deviceNo: '', active: false },
+  initialState: { id: 0, deviceName: '', deviceCode: '', deviceNo: '', active: false, subDevice:[] },
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(getDevice.fulfilled, (state, action) => action.payload),
