@@ -7,14 +7,16 @@ import { CacheProvider } from "@emotion/react";
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState, AppDispatch } from '../../../Redux/Store';
 
-import { getServicesFromServer } from "../../../Redux/Reducer/ServiceReducer";
+import { getService, postService, putService, deleteService } from "../../../Redux/Reducer/ServiceReducer";
 import BorderOne from "../../../Components/Global/Border/BorderOne";
 import { ServiceType, ActivityType } from "../../../Types/BaseInfoType";
 import { cacheDataTable } from "../../../Theme";
 import { ActivityTableColumns, ServiceTableColumns, ListServiceData } from "../../../Utils/Datas";
 import { DataTableOptions } from "../../../Utils/Datas";
+import MutationMenu from "../../../Components/Global/mutationMenu/MutationMenu";
 
 export default function Service(): React.JSX.Element {
+
   const dispatch: AppDispatch = useDispatch();
   const services = useSelector((state: RootState) => state.service);
   const [tabIndex, setTabIndex] = React.useState('1');
@@ -31,32 +33,49 @@ export default function Service(): React.JSX.Element {
     let value = Number(event.target.value);
     value < 0 ? setDuration(0) : setDuration(value);
   }
+
   const handleChangeTab = (event: React.SyntheticEvent, newValue: string) => {
     setTabIndex(newValue);
   }
-  const showDetailService = (rowData:string[]) => {
+
+  const showDetailService = (rowData: string[]) => {
     navigate(`/service/${rowData[0]}`);
     setTabIndex('1');
   }
 
-  useEffect(()=>{
-    dispatch(getServicesFromServer());
+  const saveService = () => {
+    dispatch(service ? putService(service) : postService({ id: services.length + 1, title, kind: { id: 1, text: 'تعمیراتی' }, period: { id: 1, text: 'ساعت' }, duration, activity }))
+  }
+
+  const handleMutateAction = (action: string) => {
+    switch (action) {
+      case 'new':
+        navigate('/service')
+        break;
+      case 'save':
+        saveService();
+        break;
+      case 'delete':
+        dispatch(deleteService(service?.id ? service?.id : 0))
+        break;
+    }
+  }
+
+  useEffect(() => {
+    dispatch(getService());
   }, [])
-  
+
   useEffect(() => {
-    if (service) {
-      setTitle(service.title);
-      setKind(service.kind.id.toString());
-      setPeriod(service.period ? service.period?.id.toString() : '');
-      setDuration(service.duration ? service.duration : 0);
-      setActivity(service.activity);
-    }
+    setTitle(service?.title ?? '');
+    setKind(service?.kind.id?.toString() ?? '');
+    setPeriod(service?.period?.id?.toString() ?? '');
+    setDuration(service?.duration ?? 0);
+    setActivity(service?.activity ?? []);
   }, [service])
+
   useEffect(() => {
-    let index: number = services.findIndex((service: ServiceType) => service.id.toString() === serviceParams.idService);
-    if (index != -1) {
-      setService(services[index]);
-    }
+    let index: number = services.findIndex((service: ServiceType) => service.id?.toString() === serviceParams.idService);
+    setService((index != -1 && serviceParams.idService) ? services[index] : undefined);
   }, [[], serviceParams])
 
   return (
@@ -69,7 +88,10 @@ export default function Service(): React.JSX.Element {
           </TabList>
         </Box>
         <TabPanel value="1">
-          <BorderOne title="سرویس">
+          <BorderOne title="سرویس" className="relative">
+            <div className="absolute top-1">
+              <MutationMenu handleAction={handleMutateAction} />
+            </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-5">
               <TextField variant="outlined" size="small" value={title} onChange={event => setTitle(event.target.value)} label='عنوان'></TextField>
               <FormControl sx={{ minWidth: 150 }} size="small">

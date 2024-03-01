@@ -1,33 +1,48 @@
-import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 import { ServiceType } from "../../Types/BaseInfoType";
 import apiRequests from "../../Services/AxiosConfig";
 
-const getServicesFromServer = createAsyncThunk(
-  'services/getServicesFromserver',
+const getService = createAsyncThunk(
+  'service/get',
   async () => {
     const result = await apiRequests.get('ServiceData');
     return result.data;
   }
 )
 
+const postService = createAsyncThunk(
+  'service/post',
+  async (body: ServiceType) => { await apiRequests.post('ServiceData', body) }
+)
+
+const putService = createAsyncThunk(
+  'service/put',
+  async (body: ServiceType) => { await apiRequests.put(`ServiceData/${body.id}`, body) }
+)
+
+const deleteService = createAsyncThunk(
+  'service/delete',
+  async (serviceId: number) => { await apiRequests.delete(`ServiceData/${serviceId}`) }
+)
+
 const slice = createSlice({
   name: 'service',
   initialState: [],
-  reducers: {
-    addToService: (services: ServiceType[], action: PayloadAction<ServiceType>) => {
-      services.push(action.payload);
-    }
-  },
+  reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(getServicesFromServer.fulfilled, (state, action) => action.payload)
+    builder.addCase(getService.fulfilled, (state, action) => action.payload),
+      builder.addCase(postService.fulfilled, (state, action) => action.payload),
+      builder.addCase(putService.fulfilled, (state, action) => action.payload),
+      builder.addCase(deleteService.fulfilled, (state, action) => action.payload)
   }
 })
 
 export default slice.reducer;
 
-export const {addToService} = slice.actions;
-
 export {
-  getServicesFromServer
+  getService,
+  postService,
+  putService,
+  deleteService
 }
