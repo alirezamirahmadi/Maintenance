@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-import { DeviceType } from "../../Types/BaseInfoType";
+import type { DeviceType } from "../../Types/BaseInfoType";
 import apiRequests from "../../Services/AxiosConfig";
 
 const getDevice = createAsyncThunk(

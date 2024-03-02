@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-import { ServiceType } from "../../Types/BaseInfoType";
+import type { ServiceType } from "../../Types/BaseInfoType";
 import apiRequests from "../../Services/AxiosConfig";
 
 const getService = createAsyncThunk(

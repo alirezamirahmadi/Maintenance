@@ -9,7 +9,7 @@ import type { RootState, AppDispatch } from '../../../Redux/Store';
 
 import { getService, postService, putService, deleteService } from "../../../Redux/Reducer/ServiceReducer";
 import BorderOne from "../../../Components/Global/Border/BorderOne";
-import { ServiceType, ActivityType } from "../../../Types/BaseInfoType";
+import type { ServiceType, ActivityType } from "../../../Types/BaseInfoType";
 import { cacheDataTable } from "../../../Theme";
 import { ActivityTableColumns, ServiceTableColumns, ListServiceData } from "../../../Utils/Datas";
 import { DataTableOptions } from "../../../Utils/Datas";
@@ -44,7 +44,7 @@ export default function Service(): React.JSX.Element {
   }
 
   const saveService = () => {
-    dispatch(service ? putService(service) : postService({ id: services.length + 1, title, kind: { id: 1, text: 'تعمیراتی' }, period: { id: 1, text: 'ساعت' }, duration, activity }))
+    dispatch(service ? putService({ id: service.id, title, kind: { id: 1, text: 'تعمیراتی' }, period: { id: 1, text: 'ساعت' }, duration, activity }) : postService({ id: services.length + 1, title, kind: { id: 1, text: 'تعمیراتی' }, period: { id: 1, text: 'ساعت' }, duration, activity }))
   }
 
   const handleMutateAction = (action: string) => {

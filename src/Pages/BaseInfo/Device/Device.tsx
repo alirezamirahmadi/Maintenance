@@ -36,7 +36,7 @@ export default function Device(): React.JSX.Element {
   }
 
   const saveDevice = () => {
-    dispatch(selectedDevice ? putDevice(selectedDevice) : postDevice({ deviceCode, deviceName, deviceNo, active: deviceActive }))
+    dispatch(selectedDevice ? putDevice({ id:selectedDevice.id, deviceCode, deviceName, deviceNo, active: deviceActive }) : postDevice({ deviceCode, deviceName, deviceNo, active: deviceActive }))
   }
 
   const handleMutateAction = (action: string) => {
@@ -63,10 +63,10 @@ export default function Device(): React.JSX.Element {
   }, [deviceParams])
 
   useEffect(() => {
-    setDeviceCode(selectedDevice ? selectedDevice.deviceCode : '')
-    setDeviceName(selectedDevice ? selectedDevice.deviceName : '')
-    setDeviceNo(selectedDevice ? selectedDevice.deviceNo : '')
-    setDeviceActive(selectedDevice ? selectedDevice.active : false)
+    setDeviceCode(selectedDevice?.deviceCode ?? '');
+    setDeviceName(selectedDevice?.deviceName ?? '');
+    setDeviceNo(selectedDevice?.deviceNo ?? '');
+    setDeviceActive(selectedDevice?.active ?? false);
 
     let tempArray = BOMs.filter((bom: BOMType) => bom.idDevice.toString() === deviceParams.idDevice);
     setDeviceBOM(tempArray ? [...tempArray] : []);
@@ -93,10 +93,7 @@ export default function Device(): React.JSX.Element {
           </BorderOne>
           <BorderOne>
             <CacheProvider value={cacheDataTable}>
-              <MUIDataTable data={deviceBOM} columns={BOMTableColumns} title='BOM' options={DataTableOptions}
-              // pageSizeOptions={[5, 10]} checkboxSelection
-              // initialState={{ pagination: { paginationModel: { page: 0, pageSize: 5 } } }}
-              />
+              <MUIDataTable data={deviceBOM} columns={BOMTableColumns} title='BOM' options={DataTableOptions}/>
             </CacheProvider>
           </BorderOne>
         </div>
