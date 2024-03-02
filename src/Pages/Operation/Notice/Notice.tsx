@@ -14,18 +14,20 @@ import "react-multi-date-picker/styles/backgrounds/bg-dark.css"
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState, AppDispatch } from '../../../Redux/Store';
 
-import { getNoticesFromServer } from "../../../Redux/Reducer/NoticeReducer";
+import { getNotice, postNotice, putNotice, deleteNotice } from "../../../Redux/Reducer/NoticeReducer";
 import BorderOne from "../../../Components/Global/Border/BorderOne";
-import { ProblemType } from "../../../Types/BaseInfoType";
-import { NoticeType } from "../../../Types/OperationType";
+import type { ProblemType } from "../../../Types/BaseInfoType";
+import type { NoticeType } from "../../../Types/OperationType";
 import { cacheDataTable } from "../../../Theme";
 import SelectDevice from "../../../Components/Global/SelectDevice/SelectDevice";
 import {
   ProblemTableColumns, ListNoticeData, DataTableOptions, NoticeTableColumns, listDeviceNameData
 } from "../../../Utils/Datas";
 import { ListDeviceNameType } from "../../../Types/BaseInfoType";
+import MutationMenu from "../../../Components/Global/mutationMenu/MutationMenu";
 
 export default function Notice(): React.JSX.Element {
+
   const dispatch: AppDispatch = useDispatch();
   const notices = useSelector((state: RootState) => state.notice);
   const [tabIndex, setTabIndex] = React.useState('1');
@@ -41,31 +43,48 @@ export default function Notice(): React.JSX.Element {
   const handleChangeTab = (event: React.SyntheticEvent, newValue: string) => {
     setTabIndex(newValue);
   }
+
   const showDetailNotice = (rowData: string[]) => {
     navigate(`/notice/${rowData[0]}`);
     setTabIndex('1');
   }
+
   const handleSelectedDevice = (idDevice: number) => {
 
   }
 
-  useEffect(()=>{
-    dispatch(getNoticesFromServer());
+  const saveNotice = () => {
+    const body: NoticeType = { id: notices.length + 1, device, noticeDate: String(noticeDate), description, problem }
+    dispatch(notice ? putNotice({ ...body, id: notice.id }) : postNotice({ ...body }))
+  }
+
+  const handleMutateAction = (action: string) => {
+    switch (action) {
+      case 'new':
+        navigate('/notice')
+        break;
+      case 'save':
+        saveNotice();
+        break;
+      case 'delete':
+        dispatch(deleteNotice(notice?.id ? notice?.id : 0))
+        break;
+    }
+  }
+
+  useEffect(() => {
+    dispatch(getNotice());
   }, [])
 
   useEffect(() => {
-    if (notice) {
-      setDevice(notice.device);
-      setNoticeDate(notice.noticeDate);
-      setProblem(notice.problem);
-      setDescription(notice.description ? notice.description : '');
-    }
+    setDevice(notice?.device ?? listDeviceNameData[0]);
+    setNoticeDate(notice?.noticeDate ?? '');
+    setProblem(notice?.problem ?? []);
+    setDescription(notice?.description ?? '');
   }, [notice])
   useEffect(() => {
     let index: number = notices.findIndex((notice: NoticeType) => notice.id.toString() === noticeParams.idNotice);
-    if (index != -1) {
-      setNotice(notices[index]);
-    }
+      setNotice((index != -1 && noticeParams.idNotice) ? notices[index] : undefined);
   }, [[], noticeParams])
 
   return (
@@ -78,7 +97,10 @@ export default function Notice(): React.JSX.Element {
           </TabList>
         </Box>
         <TabPanel value="1">
-          <BorderOne title="اعلان">
+          <BorderOne title="اعلان" className="relative">
+            <div className="absolute top-1">
+              <MutationMenu handleAction={handleMutateAction} />
+            </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-5">
               <SelectDevice value={device} selectedDevice={handleSelectedDevice} />
             </div>

@@ -44,7 +44,8 @@ export default function Service(): React.JSX.Element {
   }
 
   const saveService = () => {
-    dispatch(service ? putService({ id: service.id, title, kind: { id: 1, text: 'تعمیراتی' }, period: { id: 1, text: 'ساعت' }, duration, activity }) : postService({ id: services.length + 1, title, kind: { id: 1, text: 'تعمیراتی' }, period: { id: 1, text: 'ساعت' }, duration, activity }))
+    const body:ServiceType = { id: services.length + 1, title, kind: { id: 1, text: 'تعمیراتی' }, period: { id: 1, text: 'ساعت' }, duration, activity };
+    dispatch(service ? putService({ ...body, id: service.id }) : postService({...body}));
   }
 
   const handleMutateAction = (action: string) => {

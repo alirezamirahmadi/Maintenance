@@ -1,5 +1,4 @@
-import { TypedStartListening } from "@reduxjs/toolkit"
-import { ProblemType, ListDeviceNameType, ListServiceType, ActivityType } from "./BaseInfoType"
+import { ProblemType, ListDeviceNameType, ListServiceType, ActivityType } from "./BaseInfoType";
 
 type NoticeType = {
   id: number,

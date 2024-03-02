@@ -36,7 +36,8 @@ export default function Device(): React.JSX.Element {
   }
 
   const saveDevice = () => {
-    dispatch(selectedDevice ? putDevice({ id:selectedDevice.id, deviceCode, deviceName, deviceNo, active: deviceActive }) : postDevice({ deviceCode, deviceName, deviceNo, active: deviceActive }))
+    const body:DeviceType = { deviceCode, deviceName, deviceNo, active: deviceActive };
+    dispatch(selectedDevice ? putDevice({ id:selectedDevice.id, ...body }) : postDevice({...body}))
   }
 
   const handleMutateAction = (action: string) => {
