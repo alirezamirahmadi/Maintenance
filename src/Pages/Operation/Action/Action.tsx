@@ -14,7 +14,7 @@ import "react-multi-date-picker/styles/backgrounds/bg-dark.css"
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState, AppDispatch } from '../../../Redux/Store';
 
-import { getActionsFromServer } from "../../../Redux/Reducer/ActionReducer";
+import { getAction, postAction, putAction, deleteAction } from "../../../Redux/Reducer/ActionReducer";
 import BorderOne from "../../../Components/Global/Border/BorderOne";
 import { cacheDataTable } from "../../../Theme";
 import SelectDevice from "../../../Components/Global/SelectDevice/SelectDevice";
@@ -23,10 +23,12 @@ import {
   ListActionData, DataTableOptions, ActionTableColumns, listDeviceNameData, ListServiceData,
   ActivityResultTableColumns, ListActivityResultData
 } from "../../../Utils/Datas";
-import { WorkOrderType, ActionType, ListActivityResultType } from "../../../Types/OperationType";
-import { ListServiceType, ListDeviceNameType } from "../../../Types/BaseInfoType";
+import type { WorkOrderType, ActionType, ListActivityResultType } from "../../../Types/OperationType";
+import type { ListServiceType, ListDeviceNameType } from "../../../Types/BaseInfoType";
+import MutationMenu from "../../../Components/Global/mutationMenu/MutationMenu";
 
 export default function WorkOrder(): React.JSX.Element {
+
   const dispatch: AppDispatch = useDispatch();
   const actions = useSelector((state: RootState) => state.action);
   const [tabIndex, setTabIndex] = React.useState('1');
@@ -48,40 +50,59 @@ export default function WorkOrder(): React.JSX.Element {
   const handleChangeTab = (event: React.SyntheticEvent, newValue: string) => {
     setTabIndex(newValue);
   }
+
   const showDetailWorkOrder = (rowData: string[]) => {
     navigate(`/action/${rowData[0]}`);
     setTabIndex('1');
   }
+
   const handleSelectedDevice = (idDevice: number) => {
 
   }
+
   const handleSelectedService = (service: ListServiceType) => {
 
   }
 
-  useEffect(()=>{
-    dispatch(getActionsFromServer());
+  const saveAction = () => {
+    const body: ActionType = { id: actions.length + 1, workorder, startDate:String(startDate), endDate:String(endDate), activityResult, description};
+    dispatch(action ? putAction({ ...body, id: action.id }) : postAction({ ...body }))
+  }
+
+  const handleMutateAction = (actionMutation: string) => {
+    switch (actionMutation) {
+      case 'new':
+        navigate('/action')
+        break;
+      case 'save':
+        saveAction();
+        break;
+      case 'delete':
+        dispatch(deleteAction(action?.id ?? 0))
+        break;
+    }
+  }
+
+  useEffect(() => {
+    dispatch(getAction());
   }, [])
 
   useEffect(() => {
-    if (action) {
-      setWorkOrder(action.workorder);
-      setDevice(action.workorder.device);
-      setService(action.workorder.service);
-      setServiceKind(action.workorder.service.kind);
-      setServicePeriod(action.workorder.service.period ? action.workorder.service.period : '');
-      setServiceDuration(action.workorder.service.duration ? action.workorder.service.duration : 0);
-      setStartDate(action.startDate);
-      setEndDate(action.endDate);
-      setDescription(action.description ? action.description : '');
-      setActivityResult(ListActivityResultData.filter(result => result.idAction === action.id));
-    }
+    setWorkOrder(action?.workorder ?? undefined);
+    setDevice(action?.workorder?.device ?? listDeviceNameData[0]);
+    setService(action?.workorder?.service ?? ListServiceData[0]);
+    setServiceKind(action?.workorder?.service.kind ?? ListServiceData[0].kind);
+    setServicePeriod(action?.workorder?.service.period ?? '');
+    setServiceDuration(action?.workorder?.service.duration ?? 0);
+    setStartDate(action?.startDate ?? '');
+    setEndDate(action?.endDate ?? '');
+    setDescription(action?.description ?? '');
+    setActivityResult(ListActivityResultData.filter(result => result.idAction === action?.id) ?? []);
   }, [action])
+
   useEffect(() => {
     let index: number = actions.findIndex((workorder: WorkOrderType) => workorder.id.toString() === actionParams.idAction);
-    if (index != -1) {
-      setAction(actions[index]);
-    }
+    setAction((index != -1 && actionParams.idAction) ? actions[index] : undefined);
   }, [[], actionParams])
 
   return (
@@ -94,7 +115,10 @@ export default function WorkOrder(): React.JSX.Element {
           </TabList>
         </Box>
         <TabPanel value="1">
-          <BorderOne title="عملکرد">
+          <BorderOne title="عملکرد" className="relative">
+            <div className="absolute top-1">
+              <MutationMenu handleAction={handleMutateAction} />
+            </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-5">
               <TextField variant="outlined" size="small" value={workorder && workorder.id} disabled label='شماره دستورکار'></TextField>
               <SelectDevice value={device} selectedDevice={handleSelectedDevice} />

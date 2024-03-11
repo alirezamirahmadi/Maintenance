@@ -35,10 +35,10 @@ type ListWorkOrderType = {
 
 type ActionType = {
   id: number,
-  workorder:WorkOrderType,
+  workorder?:WorkOrderType,
   startDate: string,
   endDate: string,
-  activityResult:ActivityResultType[],
+  activityResult:ListActivityResultType[],
   description?: string,
 }
 
