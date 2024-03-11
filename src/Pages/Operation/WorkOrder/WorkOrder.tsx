@@ -14,16 +14,18 @@ import "react-multi-date-picker/styles/backgrounds/bg-dark.css"
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState, AppDispatch } from '../../../Redux/Store';
 
-import { getWorkOrdersFromServer } from "../../../Redux/Reducer/WorkOrderReducer";
+import { getWorkOrder, postWorkOrder, putWorkOrder, deleteWorkOrder } from "../../../Redux/Reducer/WorkOrderReducer";
 import BorderOne from "../../../Components/Global/Border/BorderOne";
-import { WorkOrderType } from "../../../Types/OperationType";
+import type { WorkOrderType } from "../../../Types/OperationType";
 import { cacheDataTable } from "../../../Theme";
 import SelectDevice from "../../../Components/Global/SelectDevice/SelectDevice";
 import SelectService from "../../../Components/Global/SelectService/SelectService";
 import { ListWorkOrderData, DataTableOptions, WorkOrderTableColumns, listDeviceNameData, ListServiceData } from "../../../Utils/Datas";
 import { ListServiceType, ListDeviceNameType } from "../../../Types/BaseInfoType";
+import MutationMenu from "../../../Components/Global/mutationMenu/MutationMenu";
 
 export default function WorkOrder(): React.JSX.Element {
+  
   const dispatch: AppDispatch = useDispatch();
   const workorders = useSelector((state: RootState) => state.workorder);
   const [tabIndex, setTabIndex] = React.useState('1');
@@ -43,38 +45,56 @@ export default function WorkOrder(): React.JSX.Element {
   const handleChangeTab = (event: React.SyntheticEvent, newValue: string) => {
     setTabIndex(newValue);
   }
+
   const showDetailWorkOrder = (rowData: string[]) => {
     navigate(`/workorder/${rowData[0]}`);
     setTabIndex('1');
   }
+
   const handleSelectedDevice = (idDevice: number) => {
 
   }
+
   const handleSelectedService = (service: ListServiceType) => {
 
   }
 
-  useEffect(()=>{
-    dispatch(getWorkOrdersFromServer());
+  const saveWorkOrder = () => {
+    const body:WorkOrderType = { id:workorders.length + 1, device, service, startDate:String(startDate), endDate:String(endDate), description };
+    dispatch(workorder ? putWorkOrder({ ...body, id:workorder.id }) : postWorkOrder({...body}))
+  }
+
+  const handleMutateAction = (action: string) => {
+    switch (action) {
+      case 'new':
+        navigate('/workorder')
+        break;
+      case 'save':
+        saveWorkOrder();
+        break;
+      case 'delete':
+        dispatch(deleteWorkOrder(workorder?.id ?? 0))
+        break;
+    }
+  }
+
+  useEffect(() => {
+    dispatch(getWorkOrder());
   }, [])
 
   useEffect(() => {
-    if (workorder) {
-      setDevice(workorder.device);
-      setService(workorder.service);
-      setServiceKind(workorder.service.kind);
-      setServicePeriod(workorder.service.period ? workorder.service.period : '');
-      setServiceDuration(workorder.service.duration ? workorder.service.duration : 0);
-      setStartDate(workorder.startDate);
-      setEndDate(workorder.endDate);
-      setDescription(workorder.description ? workorder.description : '');
-    }
+    setDevice(workorder?.device ?? listDeviceNameData[0]);
+    setService(workorder?.service ?? ListServiceData[0]);
+    setServiceKind(workorder?.service?.kind ?? ListServiceData[0].kind);
+    setServicePeriod(workorder?.service.period ?? '');
+    setServiceDuration(workorder?.service.duration ?? 0);
+    setStartDate(workorder?.startDate ?? '');
+    setEndDate(workorder?.endDate ?? '');
+    setDescription(workorder?.description ?? '');
   }, [workorder])
   useEffect(() => {
     let index: number = workorders.findIndex((workorder: WorkOrderType) => workorder.id.toString() === workorderParams.idWorkOrder);
-    if (index != -1) {
-      setWorkOrder(workorders[index]);
-    }
+    setWorkOrder((index != -1 && workorderParams.idWorkOrder) ? workorders[index] : undefined);
   }, [[], workorderParams])
 
   return (
@@ -87,7 +107,10 @@ export default function WorkOrder(): React.JSX.Element {
           </TabList>
         </Box>
         <TabPanel value="1">
-          <BorderOne title="دستورکار">
+          <BorderOne title="دستورکار" className="relative">
+            <div className="absolute top-1">
+              <MutationMenu handleAction={handleMutateAction} />
+            </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-5">
               <SelectDevice value={device} selectedDevice={handleSelectedDevice} />
               <SelectService value={service} selectedService={handleSelectedService} />

@@ -57,7 +57,7 @@ export default function Service(): React.JSX.Element {
         saveService();
         break;
       case 'delete':
-        dispatch(deleteService(service?.id ? service?.id : 0))
+        dispatch(deleteService(service?.id ?? 0))
         break;
     }
   }

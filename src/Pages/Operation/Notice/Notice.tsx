@@ -67,7 +67,7 @@ export default function Notice(): React.JSX.Element {
         saveNotice();
         break;
       case 'delete':
-        dispatch(deleteNotice(notice?.id ? notice?.id : 0))
+        dispatch(deleteNotice(notice?.id ?? 0))
         break;
     }
   }
