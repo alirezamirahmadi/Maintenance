@@ -26,9 +26,11 @@ import {
 import type { WorkOrderType, ActionType, ListActivityResultType } from "../../../Types/OperationType";
 import type { ListServiceType, ListDeviceNameType } from "../../../Types/BaseInfoType";
 import MutationMenu from "../../../Components/Global/mutationMenu/MutationMenu";
+import Loading from "../../../Components/Global/loading/Loading";
 
 export default function WorkOrder(): React.JSX.Element {
 
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const dispatch: AppDispatch = useDispatch();
   const actions = useSelector((state: RootState) => state.action);
   const [tabIndex, setTabIndex] = React.useState('1');
@@ -65,7 +67,7 @@ export default function WorkOrder(): React.JSX.Element {
   }
 
   const saveAction = () => {
-    const body: ActionType = { id: actions.length + 1, workorder, startDate:String(startDate), endDate:String(endDate), activityResult, description};
+    const body: ActionType = { id: actions.length + 1, workorder, startDate: String(startDate), endDate: String(endDate), activityResult, description };
     dispatch(action ? putAction({ ...body, id: action.id }) : postAction({ ...body }))
   }
 
@@ -84,7 +86,7 @@ export default function WorkOrder(): React.JSX.Element {
   }
 
   useEffect(() => {
-    dispatch(getAction());
+    dispatch(getAction()).then(() => setIsLoading(false));
   }, [])
 
   useEffect(() => {
@@ -104,6 +106,10 @@ export default function WorkOrder(): React.JSX.Element {
     let index: number = actions.findIndex((workorder: WorkOrderType) => workorder.id.toString() === actionParams.idAction);
     setAction((index != -1 && actionParams.idAction) ? actions[index] : undefined);
   }, [[], actionParams])
+
+  if (isLoading) {
+    return (<div className="mt-20"><Loading /></div>)
+  }
 
   return (
     <>

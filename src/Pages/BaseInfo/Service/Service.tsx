@@ -14,9 +14,11 @@ import { cacheDataTable } from "../../../Theme";
 import { ActivityTableColumns, ServiceTableColumns, ListServiceData } from "../../../Utils/Datas";
 import { DataTableOptions } from "../../../Utils/Datas";
 import MutationMenu from "../../../Components/Global/mutationMenu/MutationMenu";
+import Loading from "../../../Components/Global/loading/Loading";
 
 export default function Service(): React.JSX.Element {
 
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const dispatch: AppDispatch = useDispatch();
   const services = useSelector((state: RootState) => state.service);
   const [tabIndex, setTabIndex] = React.useState('1');
@@ -44,8 +46,8 @@ export default function Service(): React.JSX.Element {
   }
 
   const saveService = () => {
-    const body:ServiceType = { id: services.length + 1, title, kind: { id: 1, text: 'تعمیراتی' }, period: { id: 1, text: 'ساعت' }, duration, activity };
-    dispatch(service ? putService({ ...body, id: service.id }) : postService({...body}));
+    const body: ServiceType = { id: services.length + 1, title, kind: { id: 1, text: 'تعمیراتی' }, period: { id: 1, text: 'ساعت' }, duration, activity };
+    dispatch(service ? putService({ ...body, id: service.id }) : postService({ ...body }));
   }
 
   const handleMutateAction = (action: string) => {
@@ -63,7 +65,7 @@ export default function Service(): React.JSX.Element {
   }
 
   useEffect(() => {
-    dispatch(getService());
+    dispatch(getService()).then(() => setIsLoading(false));
   }, [])
 
   useEffect(() => {
@@ -78,6 +80,10 @@ export default function Service(): React.JSX.Element {
     let index: number = services.findIndex((service: ServiceType) => service.id?.toString() === serviceParams.idService);
     setService((index != -1 && serviceParams.idService) ? services[index] : undefined);
   }, [[], serviceParams])
+
+  if (isLoading) {
+    return (<div className="mt-20"><Loading /></div>)
+  }
 
   return (
     <>

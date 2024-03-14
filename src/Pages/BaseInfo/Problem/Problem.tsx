@@ -14,9 +14,11 @@ import { cacheDataTable } from "../../../Theme";
 import { ProblemTableColumns } from "../../../Utils/Datas";
 import { DataTableOptions } from "../../../Utils/Datas";
 import MutationMenu from "../../../Components/Global/mutationMenu/MutationMenu";
+import Loading from "../../../Components/Global/loading/Loading";
 
 export default function Problem(): React.JSX.Element {
 
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const dispatch: AppDispatch = useDispatch();
   const problems = useSelector((state: RootState) => state.problem);
   const [tabIndex, setTabIndex] = React.useState('1');
@@ -53,7 +55,7 @@ export default function Problem(): React.JSX.Element {
   }
 
   useEffect(() => {
-    dispatch(getProblem());
+    dispatch(getProblem()).then(() => setIsLoading(false));
   }, [])
 
   useEffect(() => {
@@ -64,6 +66,10 @@ export default function Problem(): React.JSX.Element {
     let index: number = problems.findIndex((service: ServiceType) => service.id.toString() === problemParams.idProblem);
     setProblem((index != -1 && problemParams.idProblem) ? problems[index] : undefined);
   }, [[], problemParams])
+
+  if (isLoading) {
+    return (<div className="mt-20"><Loading /></div>)
+  }
 
   return (
     <>

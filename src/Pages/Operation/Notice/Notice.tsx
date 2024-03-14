@@ -25,9 +25,11 @@ import {
 } from "../../../Utils/Datas";
 import { ListDeviceNameType } from "../../../Types/BaseInfoType";
 import MutationMenu from "../../../Components/Global/mutationMenu/MutationMenu";
+import Loading from "../../../Components/Global/loading/Loading";
 
 export default function Notice(): React.JSX.Element {
 
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const dispatch: AppDispatch = useDispatch();
   const notices = useSelector((state: RootState) => state.notice);
   const [tabIndex, setTabIndex] = React.useState('1');
@@ -73,7 +75,7 @@ export default function Notice(): React.JSX.Element {
   }
 
   useEffect(() => {
-    dispatch(getNotice());
+    dispatch(getNotice()).then(() => setIsLoading(false));
   }, [])
 
   useEffect(() => {
@@ -84,8 +86,12 @@ export default function Notice(): React.JSX.Element {
   }, [notice])
   useEffect(() => {
     let index: number = notices.findIndex((notice: NoticeType) => notice.id.toString() === noticeParams.idNotice);
-      setNotice((index != -1 && noticeParams.idNotice) ? notices[index] : undefined);
+    setNotice((index != -1 && noticeParams.idNotice) ? notices[index] : undefined);
   }, [[], noticeParams])
+
+  if (isLoading) {
+    return (<div className="mt-20"><Loading /></div>)
+  }
 
   return (
     <>

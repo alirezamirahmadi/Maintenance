@@ -15,9 +15,11 @@ import { BOMTableColumns } from "../../../Utils/Datas";
 import { cacheDataTable } from "../../../Theme";
 import { DataTableOptions } from "../../../Utils/Datas";
 import MutationMenu from "../../../Components/Global/mutationMenu/MutationMenu";
+import Loading from "../../../Components/Global/loading/Loading";
 
 export default function Device(): React.JSX.Element {
 
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const navigate = useNavigate();
   const deviceParams = useParams();
   const dispatch: AppDispatch = useDispatch();
@@ -36,8 +38,8 @@ export default function Device(): React.JSX.Element {
   }
 
   const saveDevice = () => {
-    const body:DeviceType = { deviceCode, deviceName, deviceNo, active: deviceActive };
-    dispatch(selectedDevice ? putDevice({ id:selectedDevice.id, ...body }) : postDevice({...body}))
+    const body: DeviceType = { deviceCode, deviceName, deviceNo, active: deviceActive };
+    dispatch(selectedDevice ? putDevice({ id: selectedDevice.id, ...body }) : postDevice({ ...body }))
   }
 
   const handleMutateAction = (action: string) => {
@@ -56,7 +58,7 @@ export default function Device(): React.JSX.Element {
 
   useEffect(() => {
     dispatch(getDevice());
-    dispatch(getBOM());
+    dispatch(getBOM()).then(() => setIsLoading(false));
   }, [])
 
   useEffect(() => {
@@ -73,6 +75,10 @@ export default function Device(): React.JSX.Element {
     setDeviceBOM(tempArray ? [...tempArray] : []);
 
   }, [selectedDevice])
+
+  if (isLoading) {
+    return (<div className="mt-20"><Loading /></div>)
+  }
 
   return (
     <>
@@ -94,7 +100,7 @@ export default function Device(): React.JSX.Element {
           </BorderOne>
           <BorderOne>
             <CacheProvider value={cacheDataTable}>
-              <MUIDataTable data={deviceBOM} columns={BOMTableColumns} title='BOM' options={DataTableOptions}/>
+              <MUIDataTable data={deviceBOM} columns={BOMTableColumns} title='BOM' options={DataTableOptions} />
             </CacheProvider>
           </BorderOne>
         </div>

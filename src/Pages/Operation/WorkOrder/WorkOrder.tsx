@@ -23,9 +23,11 @@ import SelectService from "../../../Components/Global/SelectService/SelectServic
 import { ListWorkOrderData, DataTableOptions, WorkOrderTableColumns, listDeviceNameData, ListServiceData } from "../../../Utils/Datas";
 import { ListServiceType, ListDeviceNameType } from "../../../Types/BaseInfoType";
 import MutationMenu from "../../../Components/Global/mutationMenu/MutationMenu";
+import Loading from "../../../Components/Global/loading/Loading";
 
 export default function WorkOrder(): React.JSX.Element {
-  
+
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const dispatch: AppDispatch = useDispatch();
   const workorders = useSelector((state: RootState) => state.workorder);
   const [tabIndex, setTabIndex] = React.useState('1');
@@ -60,8 +62,8 @@ export default function WorkOrder(): React.JSX.Element {
   }
 
   const saveWorkOrder = () => {
-    const body:WorkOrderType = { id:workorders.length + 1, device, service, startDate:String(startDate), endDate:String(endDate), description };
-    dispatch(workorder ? putWorkOrder({ ...body, id:workorder.id }) : postWorkOrder({...body}))
+    const body: WorkOrderType = { id: workorders.length + 1, device, service, startDate: String(startDate), endDate: String(endDate), description };
+    dispatch(workorder ? putWorkOrder({ ...body, id: workorder.id }) : postWorkOrder({ ...body }))
   }
 
   const handleMutateAction = (action: string) => {
@@ -79,7 +81,7 @@ export default function WorkOrder(): React.JSX.Element {
   }
 
   useEffect(() => {
-    dispatch(getWorkOrder());
+    dispatch(getWorkOrder()).then(() => setIsLoading(false));
   }, [])
 
   useEffect(() => {
@@ -96,6 +98,10 @@ export default function WorkOrder(): React.JSX.Element {
     let index: number = workorders.findIndex((workorder: WorkOrderType) => workorder.id.toString() === workorderParams.idWorkOrder);
     setWorkOrder((index != -1 && workorderParams.idWorkOrder) ? workorders[index] : undefined);
   }, [[], workorderParams])
+
+  if (isLoading) {
+    return (<div className="mt-20"><Loading /></div>)
+  }
 
   return (
     <>
