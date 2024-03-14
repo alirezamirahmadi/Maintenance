@@ -600,6 +600,14 @@ video {
   margin-top: 1rem;
 }
 
+.mt-16 {
+  margin-top: 4rem;
+}
+
+.mt-8 {
+  margin-top: 2rem;
+}
+
 .block {
   display: block;
 }
@@ -622,6 +630,10 @@ video {
 
 .w-11\/12 {
   width: 91.666667%;
+}
+
+.w-48 {
+  width: 12rem;
 }
 
 .w-64 {
@@ -713,6 +725,26 @@ video {
 }
 
 @media (min-width: 1024px) {
+  .lg\:mt-52 {
+    margin-top: 13rem;
+  }
+
+  .lg\:mt-36 {
+    margin-top: 9rem;
+  }
+
+  .lg\:mt-28 {
+    margin-top: 7rem;
+  }
+
+  .lg\:mt-16 {
+    margin-top: 4rem;
+  }
+
+  .lg\:w-96 {
+    width: 24rem;
+  }
+
   .lg\:flex-nowrap {
     flex-wrap: nowrap;
   }
