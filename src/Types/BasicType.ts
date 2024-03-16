@@ -31,4 +31,9 @@ type BorderOneProp = {
   children: React.ReactNode,
 }
 
-export type { personType, accountType, loginType, MenuItemType, BorderOneProp }
+type openCollapseType = {
+  id: number,
+  open: boolean
+}
+
+export type { personType, accountType, loginType, MenuItemType, BorderOneProp, openCollapseType }

@@ -4,21 +4,16 @@ import {
   Box, Collapse, Tooltip, Toolbar, List, CssBaseline, Typography, Divider, IconButton,
   ListItem, ListItemButton, ListItemIcon, ListItemText,
 } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import MuiDrawer from '@mui/material/Drawer';
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-
+import type { openCollapseType } from '../../Types/BasicType';
 import { MenuItemData } from '../../Utils/Datas';
 
 const drawerWidth = 240;
-
-type openCollapseType = {
-  id: number,
-  open: boolean
-}
 
 const openedMixin = (theme: Theme): CSSObject => ({
   width: drawerWidth,
@@ -89,27 +84,33 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 );
 
 export default function Menu({ children }: { children: React.ReactNode }): React.JSX.Element {
+
+  const location = useLocation();
   const theme = useTheme();
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const [openCollapse, setOpenCollapse] = useState<openCollapseType[]>([]);
-  const [listSelected, setListSelected] = useState(0);
+  const [listSelected, setListSelected] = useState<string>('');
 
   const handleDrawerOpen = () => {
     setOpen(true);
   }
+
   const handleDrawerClose = () => {
     setOpen(false);
   }
-  const selectCategory = (id: number, href: string) => {
-    setListSelected(id);
+
+  const selectCategory = (href: string) => {
+    setListSelected(href);
     navigate(href);
   }
+
   const handleOpenCollapse = (id: number) => {
     let collapse = openCollapse?.find(col => col.id === id);
     let tempArray = openCollapse?.filter(col => col.id != id);
     collapse && setOpenCollapse([...tempArray, { id, open: !collapse.open }])
   }
+  
   const isCollapseOpen = (id: number) => {
     let collapse = openCollapse.find(col => col.id === id);
     return collapse ? collapse?.open : false
@@ -121,6 +122,10 @@ export default function Menu({ children }: { children: React.ReactNode }): React
       menuItem && tempArray.push({ id: menuItem.id, open: false })
     })
     setOpenCollapse([...tempArray]);
+  }, [])
+
+  useEffect(() => {
+    setListSelected(location.pathname);
   }, [])
 
   return (
@@ -165,11 +170,11 @@ export default function Menu({ children }: { children: React.ReactNode }): React
                         menuItem.subMenu.map(subItem => (
                           <ListItem key={subItem.id} disablePadding sx={{ display: 'block' }}>
                             <Tooltip title={open ? '' : subItem.title}>
-                              <ListItemButton onClick={() => selectCategory(subItem.id, subItem.href)} sx={{ height: 30, justifyContent: open ? 'initial' : 'center', px: 2.5 }}>
-                                <ListItemIcon sx={{ minWidth: 0, mr: open ? 1 : 'auto', justifyContent: 'center', color:listSelected === subItem.id ? theme.palette.primary.main :'text.primary' }} >
+                              <ListItemButton onClick={() => selectCategory(subItem.href)} sx={{ height: 30, justifyContent: open ? 'initial' : 'center', px: 2.5 }}>
+                                <ListItemIcon sx={{ minWidth: 0, mr: open ? 1 : 'auto', justifyContent: 'center', color: listSelected === subItem.href ? theme.palette.primary.main : 'text.primary' }} >
                                   {subItem.icon}
                                 </ListItemIcon>
-                                <ListItemText sx={{ opacity: open ? 1 : 0 }} primary={<Typography variant='body2' color={listSelected === subItem.id ? 'primary' :'text.primary'}>{subItem.title}</Typography>} />
+                                <ListItemText sx={{ opacity: open ? 1 : 0 }} primary={<Typography variant='body2' color={listSelected === subItem.href ? 'primary' : 'text.primary'}>{subItem.title}</Typography>} />
                               </ListItemButton>
                             </Tooltip>
                           </ListItem>
