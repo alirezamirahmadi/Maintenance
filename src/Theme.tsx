@@ -8,6 +8,7 @@ import rtlPlugin from 'stylis-plugin-rtl';
 import { prefixer } from 'stylis';
 
 import App from './App.tsx';
+import sahel from './fonts/Sahel-FD.woff2';
 
 const cacheRtl = createCache({
   key: 'muirtl',
@@ -52,9 +53,17 @@ export default function Theme() {
         mode,
       },
       typography: {
-        fontFamily: ["B Nazanin"].join(","),
+        fontFamily: ["sahel, arial"].join(","),
       },
       components: {
+        MuiCssBaseline: {
+          styleOverrides: `
+            @font-face {
+              font-family: 'sahel';
+              src: url(${sahel}) format('woff2');
+            }
+          `,
+        },
         MUIDataTableBodyCell: {
           styleOverrides: {
             root: {

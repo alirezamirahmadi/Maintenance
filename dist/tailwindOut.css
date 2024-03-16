@@ -741,6 +741,10 @@ video {
     margin-top: 4rem;
   }
 
+  .lg\:h-screen {
+    height: 100vh;
+  }
+
   .lg\:w-96 {
     width: 24rem;
   }

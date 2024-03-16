@@ -110,7 +110,7 @@ export default function Menu({ children }: { children: React.ReactNode }): React
     let tempArray = openCollapse?.filter(col => col.id != id);
     collapse && setOpenCollapse([...tempArray, { id, open: !collapse.open }])
   }
-  
+
   const isCollapseOpen = (id: number) => {
     let collapse = openCollapse.find(col => col.id === id);
     return collapse ? collapse?.open : false
@@ -137,6 +137,7 @@ export default function Menu({ children }: { children: React.ReactNode }): React
             sx={{ ...(open && { display: 'none' }), }}
           >
             <MenuIcon />
+            <Typography variant='h5' sx={{ ml: 3 }}>نگهداری و تعمیرات</Typography>
           </IconButton>
         </Toolbar>
       </AppBar>

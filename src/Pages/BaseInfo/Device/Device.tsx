@@ -83,7 +83,7 @@ export default function Device(): React.JSX.Element {
   return (
     <>
       <div className="flex flex-wrap lg:flex-nowrap">
-        <BorderOne className="w-64 h-screen overflow-auto mx-2">
+        <BorderOne className="w-64 lg:h-screen overflow-auto mx-2">
           <DeviceTree deviceTree={devices} />
         </BorderOne>
         <div className="w-full">
