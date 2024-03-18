@@ -21,7 +21,7 @@ const cacheDataTable = createCache({
 
 export default function Theme() {
   const [cookies, setCookie, removeCookie] = useCookies(['dark-mode']);
-  const [mode, setMode] = useState<'light' | 'dark'>('dark');
+  const [mode, setMode] = useState<'light' | 'dark'>('light');
   // const colorMode = useMemo(
   //   () => ({
   //     toggleColorMode: () => {
@@ -51,6 +51,16 @@ export default function Theme() {
 
       palette: {
         mode,
+
+        primary: {
+          main: '#0067A5',
+          contrastText: '#fff',
+        },
+
+        secondary: {
+          main: '#00A693',
+          contrastText: '#fff',
+        },
       },
       typography: {
         fontFamily: ["sahel, arial"].join(","),
