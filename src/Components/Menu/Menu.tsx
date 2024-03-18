@@ -10,8 +10,10 @@ import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+
 import type { openCollapseType } from '../../Types/BasicType';
 import { MenuItemData } from '../../Utils/Datas';
+import NavBar from '../navbar/NavBar';
 
 const drawerWidth = 240;
 
@@ -132,13 +134,13 @@ export default function Menu({ children }: { children: React.ReactNode }): React
     <div dir='rtl' className='flex'>
       <CssBaseline />
       <AppBar position="fixed" open={open}>
-        <Toolbar>
+        <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
           <IconButton color="inherit" aria-label="open drawer" onClick={handleDrawerOpen} edge="start"
             sx={{ ...(open && { display: 'none' }), }}
           >
             <MenuIcon />
-            <Typography variant='h5' sx={{ ml: 3 }}>نگهداری و تعمیرات</Typography>
           </IconButton>
+          <NavBar />
         </Toolbar>
       </AppBar>
       <Drawer variant="permanent" open={open} >

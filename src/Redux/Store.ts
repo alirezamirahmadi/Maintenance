@@ -8,23 +8,24 @@ import ProblemReducer from './Reducer/ProblemReducer';
 import NoticeReducer from './Reducer/NoticeReducer';
 import WorkOrderReducer from './Reducer/WorkOrderReducer';
 import ActionReducer from './Reducer/ActionReducer';
+import ModeReducer from './Reducer/ModeReducer';
 
 const store = configureStore({
   reducer: {
-    login:LoginReducer,
-    device:DeviceReducer,
-    BOM:BOMReducer,
-    service:ServiceReducer,
-    problem:ProblemReducer,
-    notice:NoticeReducer,
-    workorder:WorkOrderReducer,
-    action:ActionReducer,
+    login: LoginReducer,
+    device: DeviceReducer,
+    BOM: BOMReducer,
+    service: ServiceReducer,
+    problem: ProblemReducer,
+    notice: NoticeReducer,
+    workorder: WorkOrderReducer,
+    action: ActionReducer,
+    mode: ModeReducer,
   }
 })
 
 export default store;
-// Infer the `RootState` and `AppDispatch` types from the store itself
+
 export type RootState = ReturnType<typeof store.getState>
-// Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
+
 export type AppDispatch = typeof store.dispatch
-// export type AppDispatch = typeof useDispatch

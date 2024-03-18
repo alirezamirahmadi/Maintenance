@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { useCookies } from "react-cookie";
@@ -6,42 +6,36 @@ import createCache from '@emotion/cache';
 import { CacheProvider } from '@emotion/react';
 import rtlPlugin from 'stylis-plugin-rtl';
 import { prefixer } from 'stylis';
+import { useSelector, useDispatch } from 'react-redux';
 
+import { RootState, AppDispatch } from './Redux/Store.ts';
 import App from './App.tsx';
 import sahel from './fonts/Sahel-FD.woff2';
+import { change } from './Redux/Reducer/ModeReducer.tsx';
 
 const cacheRtl = createCache({
   key: 'muirtl',
   stylisPlugins: [prefixer, rtlPlugin],
-});
+})
+
 const cacheDataTable = createCache({
   key: "mui-datatables",
   prepend: true
-});
+})
 
 export default function Theme() {
-  const [cookies, setCookie, removeCookie] = useCookies(['dark-mode']);
+
+  const dispatch = useDispatch<AppDispatch>();
+  const darkMode = useSelector((state: RootState) => state.mode);
+  const [cookies, ,] = useCookies(['darkmode']);
   const [mode, setMode] = useState<'light' | 'dark'>('light');
-  // const colorMode = useMemo(
-  //   () => ({
-  //     toggleColorMode: () => {
-  //       // console.log(mode);
-  //       setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
 
-  //       // setMode('dark');
-  //     },
-  //   }),
-  //   [],
-  // );
-
-  // const setTheme = () => {
-
-  // }
-
-  // useEffect(() => {
-  //   console.log(mode);
-
-  // }, [mode])
+  useEffect(() => {
+    dispatch(change(cookies.darkmode));
+    if (darkMode === 'light' || darkMode === 'dark') {
+      setMode(darkMode);
+    }
+  }, [darkMode])
 
   let theme = createTheme({});
   theme = useMemo(() =>
@@ -53,13 +47,13 @@ export default function Theme() {
         mode,
 
         primary: {
-          main: '#0067A5',
+          main: mode === 'light' ? '#0067A5' : '#00A693',
           contrastText: '#fff',
         },
 
         secondary: {
-          main: '#00A693',
-          contrastText: '#fff',
+          main: mode === 'light' ? '#00A693' : '#0067A5',
+          contrastText: '#ccc',
         },
       },
       typography: {
@@ -77,16 +71,16 @@ export default function Theme() {
         MUIDataTableBodyCell: {
           styleOverrides: {
             root: {
-              textAlign:'right'
+              textAlign: 'right'
             }
           }
         },
-        MUIDataTable:{
-         styleOverrides:{
-          tableRoot:{
-            overflow:'unset',
+        MUIDataTable: {
+          styleOverrides: {
+            tableRoot: {
+              overflow: 'unset',
+            }
           }
-         } 
         }
       }
     }),

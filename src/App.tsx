@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { useRoutes } from 'react-router-dom'
 import { useSelector } from "react-redux";
-import type { RootState } from './Redux/Store'
-import '../dist/tailwindOut.css';
 
+import type { RootState } from './Redux/Store'
 import routes from './Route/Routes';
 import Menu from './Components/Menu/Menu';
 import Loading from './Components/Global/loading/Loading';
+import '../dist/tailwindOut.css';
 
 export default function App(): React.JSX.Element {
   
