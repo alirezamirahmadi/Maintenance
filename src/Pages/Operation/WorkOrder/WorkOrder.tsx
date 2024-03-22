@@ -4,16 +4,15 @@ import { TextField, Box, Tab, useTheme } from "@mui/material";
 import { TabContext, TabList, TabPanel, } from '@mui/lab';
 import MUIDataTable from "mui-datatables";
 import { CacheProvider } from "@emotion/react";
-
 import DatePicker from "react-multi-date-picker";
 import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
+import Swal from "sweetalert2";
 import type { Value } from "react-multi-date-picker";
 import "react-multi-date-picker/styles/backgrounds/bg-dark.css"
 
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState, AppDispatch } from '../../../Redux/Store';
-
 import { getWorkOrder, postWorkOrder, putWorkOrder, deleteWorkOrder } from "../../../Redux/Reducer/WorkOrderReducer";
 import BorderOne from "../../../Components/Global/Border/BorderOne";
 import type { WorkOrderType } from "../../../Types/OperationType";
@@ -64,6 +63,15 @@ export default function WorkOrder(): React.JSX.Element {
   const saveWorkOrder = () => {
     const body: WorkOrderType = { id: workorders.length + 1, device, service, startDate: String(startDate), endDate: String(endDate), description };
     dispatch(workorder ? putWorkOrder({ ...body, id: workorder.id }) : postWorkOrder({ ...body }))
+      .then(() => {
+        Swal.fire({
+          title: 'ذخیره',
+          text: 'عملیات مورد نظر با موفقیت انجام شد',
+          icon: 'success',
+          confirmButtonText: 'تایید',
+          confirmButtonColor: theme.palette.primary.main,
+        })
+      });
   }
 
   const handleMutateAction = (action: string) => {
@@ -76,6 +84,15 @@ export default function WorkOrder(): React.JSX.Element {
         break;
       case 'delete':
         dispatch(deleteWorkOrder(workorder?.id ?? 0))
+          .then(() => {
+            Swal.fire({
+              title: 'حذف',
+              text: 'عملیات حذف با موفقیت انجام شد',
+              icon: 'success',
+              confirmButtonText: 'تایید',
+              confirmButtonColor: theme.palette.primary.main,
+            })
+          });
         break;
     }
   }
@@ -114,7 +131,7 @@ export default function WorkOrder(): React.JSX.Element {
         </Box>
         <TabPanel value="1">
           <BorderOne title="دستورکار" className="relative">
-            <div className="absolute top-1">
+            <div className="absolute top-0">
               <MutationMenu handleAction={handleMutateAction} />
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-5">

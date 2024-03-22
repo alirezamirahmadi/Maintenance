@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { TextField, Box, Tab } from "@mui/material";
+import { TextField, Box, Tab, useTheme } from "@mui/material";
 import { TabContext, TabList, TabPanel, } from '@mui/lab';
 import MUIDataTable from "mui-datatables";
 import { CacheProvider } from "@emotion/react";
 import { useDispatch, useSelector } from "react-redux";
-import type { RootState, AppDispatch } from '../../../Redux/Store';
+import Swal from 'sweetalert2';
 
+import type { RootState, AppDispatch } from '../../../Redux/Store';
 import { getProblem, postProblem, putProblem, deleteProblem } from "../../../Redux/Reducer/ProblemReducer";
 import BorderOne from "../../../Components/Global/Border/BorderOne";
 import type { ServiceType } from "../../../Types/BaseInfoType";
@@ -18,6 +19,7 @@ import Loading from "../../../Components/Global/loading/Loading";
 
 export default function Problem(): React.JSX.Element {
 
+  const theme = useTheme();
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const dispatch: AppDispatch = useDispatch();
   const problems = useSelector((state: RootState) => state.problem);
@@ -38,18 +40,36 @@ export default function Problem(): React.JSX.Element {
 
   const saveProblem = () => {
     dispatch(problem ? putProblem({ id: problem.id, title }) : postProblem({ id: problems.length + 1, title }))
+      .then(() => {
+        Swal.fire({
+          title: 'ذخیره',
+          text: 'عملیات مورد نظر با موفقیت انجام شد',
+          icon: 'success',
+          confirmButtonText: 'تایید',
+          confirmButtonColor: theme.palette.primary.main,
+        })
+      });
   }
 
   const handleMutateAction = (action: string) => {
     switch (action) {
       case 'new':
-        navigate('/problem')
+        navigate('/problem');
         break;
       case 'save':
         saveProblem();
         break;
       case 'delete':
         dispatch(deleteProblem(problem?.id ?? 0))
+          .then(() => {
+            Swal.fire({
+              title: 'حذف',
+              text: 'عملیات حذف با موفقیت انجام شد',
+              icon: 'success',
+              confirmButtonText: 'تایید',
+              confirmButtonColor: theme.palette.primary.main,
+            })
+          });
         break;
     }
   }
@@ -82,7 +102,7 @@ export default function Problem(): React.JSX.Element {
         </Box>
         <TabPanel value="1">
           <BorderOne title="ایراد" className="relative">
-            <div className="absolute top-1">
+            <div className="absolute top-0">
               <MutationMenu handleAction={handleMutateAction} />
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-5">

@@ -4,16 +4,15 @@ import { TextField, Box, Tab, useTheme } from "@mui/material";
 import { TabContext, TabList, TabPanel, } from '@mui/lab';
 import MUIDataTable from "mui-datatables";
 import { CacheProvider } from "@emotion/react";
-
 import DatePicker from "react-multi-date-picker";
 import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
+import Swal from "sweetalert2";
 import type { Value } from "react-multi-date-picker";
 import "react-multi-date-picker/styles/backgrounds/bg-dark.css"
 
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState, AppDispatch } from '../../../Redux/Store';
-
 import { getAction, postAction, putAction, deleteAction } from "../../../Redux/Reducer/ActionReducer";
 import BorderOne from "../../../Components/Global/Border/BorderOne";
 import { cacheDataTable } from "../../../Theme";
@@ -69,6 +68,15 @@ export default function WorkOrder(): React.JSX.Element {
   const saveAction = () => {
     const body: ActionType = { id: actions.length + 1, workorder, startDate: String(startDate), endDate: String(endDate), activityResult, description };
     dispatch(action ? putAction({ ...body, id: action.id }) : postAction({ ...body }))
+      .then(() => {
+        Swal.fire({
+          title: 'ذخیره',
+          text: 'عملیات مورد نظر با موفقیت انجام شد',
+          icon: 'success',
+          confirmButtonText: 'تایید',
+          confirmButtonColor: theme.palette.primary.main,
+        })
+      });
   }
 
   const handleMutateAction = (actionMutation: string) => {
@@ -81,6 +89,15 @@ export default function WorkOrder(): React.JSX.Element {
         break;
       case 'delete':
         dispatch(deleteAction(action?.id ?? 0))
+          .then(() => {
+            Swal.fire({
+              title: 'حذف',
+              text: 'عملیات حذف با موفقیت انجام شد',
+              icon: 'success',
+              confirmButtonText: 'تایید',
+              confirmButtonColor: theme.palette.primary.main,
+            })
+          });
         break;
     }
   }
@@ -122,7 +139,7 @@ export default function WorkOrder(): React.JSX.Element {
         </Box>
         <TabPanel value="1">
           <BorderOne title="عملکرد" className="relative">
-            <div className="absolute top-1">
+            <div className="absolute top-0">
               <MutationMenu handleAction={handleMutateAction} />
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-5">
@@ -147,11 +164,9 @@ export default function WorkOrder(): React.JSX.Element {
               <TextField variant="outlined" size="small" value={description} onChange={event => setDescription(event.target.value)} label='توضیحات'></TextField>
             </div>
           </BorderOne>
-          <BorderOne>
-            <CacheProvider value={cacheDataTable}>
-              <MUIDataTable data={activityResult} columns={ActivityResultTableColumns} title='نتیجه فعالیت ها' options={{ ...DataTableOptions, onRowClick: (rowData: string[]) => showDetailWorkOrder(rowData) }} />
-            </CacheProvider>
-          </BorderOne>
+          <CacheProvider value={cacheDataTable}>
+            <MUIDataTable data={activityResult} columns={ActivityResultTableColumns} title='نتیجه فعالیت ها' options={{ ...DataTableOptions, onRowClick: (rowData: string[]) => showDetailWorkOrder(rowData) }} />
+          </CacheProvider>
         </TabPanel>
         <TabPanel value="2">
           <CacheProvider value={cacheDataTable}>

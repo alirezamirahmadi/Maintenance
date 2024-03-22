@@ -4,16 +4,15 @@ import { TextField, Box, Tab, useTheme } from "@mui/material";
 import { TabContext, TabList, TabPanel, } from '@mui/lab';
 import MUIDataTable from "mui-datatables";
 import { CacheProvider } from "@emotion/react";
-
 import DatePicker from "react-multi-date-picker";
 import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
+import Swal from "sweetalert2";
 import type { Value } from "react-multi-date-picker";
 import "react-multi-date-picker/styles/backgrounds/bg-dark.css"
 
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState, AppDispatch } from '../../../Redux/Store';
-
 import { getNotice, postNotice, putNotice, deleteNotice } from "../../../Redux/Reducer/NoticeReducer";
 import BorderOne from "../../../Components/Global/Border/BorderOne";
 import type { ProblemType } from "../../../Types/BaseInfoType";
@@ -58,6 +57,15 @@ export default function Notice(): React.JSX.Element {
   const saveNotice = () => {
     const body: NoticeType = { id: notices.length + 1, device, noticeDate: String(noticeDate), description, problem }
     dispatch(notice ? putNotice({ ...body, id: notice.id }) : postNotice({ ...body }))
+      .then(() => {
+        Swal.fire({
+          title: 'ذخیره',
+          text: 'عملیات مورد نظر با موفقیت انجام شد',
+          icon: 'success',
+          confirmButtonText: 'تایید',
+          confirmButtonColor: theme.palette.primary.main,
+        })
+      });
   }
 
   const handleMutateAction = (action: string) => {
@@ -70,6 +78,15 @@ export default function Notice(): React.JSX.Element {
         break;
       case 'delete':
         dispatch(deleteNotice(notice?.id ?? 0))
+          .then(() => {
+            Swal.fire({
+              title: 'حذف',
+              text: 'عملیات حذف با موفقیت انجام شد',
+              icon: 'success',
+              confirmButtonText: 'تایید',
+              confirmButtonColor: theme.palette.primary.main,
+            })
+          });
         break;
     }
   }
@@ -104,7 +121,7 @@ export default function Notice(): React.JSX.Element {
         </Box>
         <TabPanel value="1">
           <BorderOne title="اعلان" className="relative">
-            <div className="absolute top-1">
+            <div className="absolute top-0">
               <MutationMenu handleAction={handleMutateAction} />
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-5">
@@ -117,11 +134,9 @@ export default function Notice(): React.JSX.Element {
               <TextField variant="outlined" size="small" value={description} onChange={event => setDescription(event.target.value)} label='توضیحات'></TextField>
             </div>
           </BorderOne>
-          <BorderOne>
-            <CacheProvider value={cacheDataTable}>
-              <MUIDataTable data={problem} columns={ProblemTableColumns} title='ایرادها' options={DataTableOptions} />
-            </CacheProvider>
-          </BorderOne>
+          <CacheProvider value={cacheDataTable}>
+            <MUIDataTable data={problem} columns={ProblemTableColumns} title='ایرادها' options={DataTableOptions} />
+          </CacheProvider>
         </TabPanel>
         <TabPanel value="2">
           <CacheProvider value={cacheDataTable}>

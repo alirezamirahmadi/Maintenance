@@ -29,7 +29,7 @@ export default function MutationMenu({ handleAction }: { handleAction: (action: 
 
   const handleSave = () => {
     handleAction('save');
-    handleClose();
+    handleClose()
   }
 
   const handleDelete = () => {

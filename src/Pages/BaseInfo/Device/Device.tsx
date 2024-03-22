@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
-import { Typography, FormControlLabel, Checkbox, TextField } from "@mui/material";
+import { Typography, FormControlLabel, Checkbox, TextField, useTheme } from "@mui/material";
 import MUIDataTable from "mui-datatables";
 import { useParams, useNavigate } from "react-router";
 import { CacheProvider } from "@emotion/react";
 import { useDispatch, useSelector } from "react-redux";
-import type { RootState, AppDispatch } from '../../../Redux/Store';
+import Swal from "sweetalert2";
 
+import type { RootState, AppDispatch } from '../../../Redux/Store';
 import { getDevice, postDevice, putDevice, deleteDevice } from "../../../Redux/Reducer/DeviceReducer";
 import { getBOM } from "../../../Redux/Reducer/BOMReducer";
 import BorderOne from "../../../Components/Global/Border/BorderOne"
@@ -19,6 +20,7 @@ import Loading from "../../../Components/Global/loading/Loading";
 
 export default function Device(): React.JSX.Element {
 
+  const theme = useTheme();
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const navigate = useNavigate();
   const deviceParams = useParams();
@@ -40,6 +42,15 @@ export default function Device(): React.JSX.Element {
   const saveDevice = () => {
     const body: DeviceType = { deviceCode, deviceName, deviceNo, active: deviceActive };
     dispatch(selectedDevice ? putDevice({ id: selectedDevice.id, ...body }) : postDevice({ ...body }))
+      .then(() => {
+        Swal.fire({
+          title: 'ذخیره',
+          text: 'عملیات مورد نظر با موفقیت انجام شد',
+          icon: 'success',
+          confirmButtonText: 'تایید',
+          confirmButtonColor: theme.palette.primary.main,
+        })
+      });
   }
 
   const handleMutateAction = (action: string) => {
@@ -52,6 +63,15 @@ export default function Device(): React.JSX.Element {
         break;
       case 'delete':
         dispatch(deleteDevice(selectedDevice?.id ? selectedDevice?.id : 0))
+          .then(() => {
+            Swal.fire({
+              title: 'حذف',
+              text: 'عملیات حذف با موفقیت انجام شد',
+              icon: 'success',
+              confirmButtonText: 'تایید',
+              confirmButtonColor: theme.palette.primary.main,
+            })
+          });
         break;
     }
   }
@@ -88,7 +108,7 @@ export default function Device(): React.JSX.Element {
         </BorderOne>
         <div className="w-full">
           <BorderOne title="مشخصات دستگاه" className="relative">
-            <div className="absolute top-1">
+            <div className="absolute top-0">
               <MutationMenu handleAction={handleMutateAction} />
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-5">
@@ -98,11 +118,9 @@ export default function Device(): React.JSX.Element {
               <FormControlLabel control={<Checkbox checked={deviceActive} onChange={event => setDeviceActive(event.target.checked)} />} label={<Typography variant="body2" >فعال</Typography>} />
             </div>
           </BorderOne>
-          <BorderOne>
-            <CacheProvider value={cacheDataTable}>
-              <MUIDataTable data={deviceBOM} columns={BOMTableColumns} title='BOM' options={DataTableOptions} />
-            </CacheProvider>
-          </BorderOne>
+          <CacheProvider value={cacheDataTable}>
+            <MUIDataTable data={deviceBOM} columns={BOMTableColumns} title='BOM' options={DataTableOptions} />
+          </CacheProvider>
         </div>
       </div>
     </>
