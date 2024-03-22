@@ -1,14 +1,16 @@
 import { useState } from 'react';
-import { IconButton, Menu, MenuItem, ListItemIcon, ListItemText } from '@mui/material';
+import { IconButton, Menu, MenuItem, ListItemIcon, ListItemText, useTheme } from '@mui/material';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import LoupeIcon from '@mui/icons-material/Loupe';
 import SaveOutlinedIcon from '@mui/icons-material/SaveOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
+import Swal from 'sweetalert2';
 
 const ITEM_HEIGHT = 48;
 
 export default function MutationMenu({ handleAction }: { handleAction: (action: string) => void }): React.JSX.Element {
 
+  const theme = useTheme();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
@@ -31,7 +33,15 @@ export default function MutationMenu({ handleAction }: { handleAction: (action: 
   }
 
   const handleDelete = () => {
-    handleAction('delete');
+    Swal.fire({
+      title: 'حذف',
+      text: 'آیا تمایل به حذف این مورد را دارید؟',
+      icon: 'question',
+      confirmButtonText: 'حذف',
+      confirmButtonColor: theme.palette.error.main,
+      showCancelButton: true,
+      cancelButtonText: 'انصراف',
+    }).then(res => { res.isConfirmed && handleAction('delete'); })
     handleClose();
   }
 

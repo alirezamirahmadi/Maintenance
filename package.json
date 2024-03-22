@@ -44,6 +44,7 @@
     "styled-components": "^6.1.1",
     "stylis": "^4.3.0",
     "stylis-plugin-rtl": "^2.1.1",
+    "sweetalert2": "^11.11.0",
     "swiper": "^11.0.5"
   },
   "devDependencies": {
