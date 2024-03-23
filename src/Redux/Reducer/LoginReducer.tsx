@@ -1,41 +1,42 @@
-import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-import { loginType } from '../../Types/BasicType'
+import { personType } from '../../Types/BasicType'
 import apiRequests from "../../Services/AxiosConfig";
 
-const getLoginFromServer = createAsyncThunk(
-  'Login/getLoginFromserver',
+const getLogin = createAsyncThunk(
+  'Login/GET',
   async () => {
     const result = await apiRequests.get('LoginData');
     return result.data;
   }
 )
 
+const postLogin = createAsyncThunk(
+  'login/POST',
+  async (body: personType) => { await apiRequests.post('LoginData', body) }
+)
+
+const logout = createAsyncThunk(
+  'login/DELETE',
+  async (loginId: string) => { await apiRequests.delete(`LoginData/${loginId}`) }
+)
+
 const slice = createSlice({
   name: 'login',
-  initialState: {isLogin:false, token:'', userInfo:{username:'', password:'', person:{firstName:'', lastName:''}}},
-  reducers: {
-    login: (user: loginType, action: PayloadAction<loginType>) => {
-      user.isLogin = true;
-      user.token = action.payload.token;
-      user.account = action.payload.account;
-    },
-    logout: (user: loginType) => {
-      user.isLogin = false;
-      user.token = '';
-      user.account = undefined
-    },
-  },
+  initialState: { isLogin: false, token: '', userInfo: { username: '', password: '', person: { firstName: '', lastName: '' } } },
+  reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(getLoginFromServer.fulfilled, (state, action) => action.payload)
+    builder.addCase(getLogin.fulfilled, (state, action) => action.payload),
+      builder.addCase(postLogin.fulfilled, (state, action) => action.payload),
+      builder.addCase(logout.fulfilled, (state, action) => action.payload)
   }
 })
 
 
 export default slice.reducer;
 
-export const {login, logout} = slice.actions;
-
 export {
-  getLoginFromServer
+  getLogin,
+  postLogin,
+  logout
 }

@@ -6,6 +6,7 @@ type personType = {
   phone?: string,
   email?: string,
 }
+
 type accountType = {
   username: string,
   password: string,
