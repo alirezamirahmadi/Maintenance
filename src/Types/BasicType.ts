@@ -1,13 +1,13 @@
 
 type personType = {
-  id: number
   firstName: string,
   lastName: string,
-  phone?: string,
+  phone: string,
   email?: string,
 }
 
 type accountType = {
+  id: number,
   username: string,
   password: string,
   person: personType,
@@ -16,19 +16,19 @@ type accountType = {
 type loginType = {
   isLogin: boolean,
   token: string;
-  account?: accountType,
+  person?: personType,
 }
 
 type MenuItemType = {
   id: number,
-  icon?:React.ReactNode,
+  icon?: React.ReactNode,
   title: string,
-  subMenu: { id: number,icon?:React.ReactNode, title: string, href: string, }[],
+  subMenu: { id: number, icon?: React.ReactNode, title: string, href: string, }[],
 }
 
 type BorderOneProp = {
   title?: string,
-  className?:string,
+  className?: string,
   children: React.ReactNode,
 }
 

@@ -6,22 +6,24 @@ import WorkOrder from "../Pages/Operation/WorkOrder/WorkOrder";
 import Action from "../Pages/Operation/Action/Action";
 import Problem from "../Pages/BaseInfo/Problem/Problem";
 import NotFound from "../Pages/notFound/NotFound";
+import Login from "../Pages/login/Login";
 
 const routes = (isLogin: boolean) => [
-  { path: '/', element: <Home /> },
-  { path: '/device', element: <Device /> },
-  { path: '/device/:idDevice', element: <Device /> },
-  { path: '/service', element: <Service /> },
-  { path: '/service/:idService', element: <Service /> },
-  { path: '/problem', element: <Problem /> },
-  { path: '/problem/:idProblem', element: <Problem /> },
-  { path: '/notice', element: <Notice /> },
-  { path: '/notice/:idNotice', element: <Notice /> },
-  { path: '/workorder', element: <WorkOrder /> },
-  { path: '/workorder/:idWorkOrder', element: <WorkOrder /> },
-  { path: '/action', element: <Action /> },
-  { path: '/action/:idAction', element: <Action /> },
-  { path: '/*', element: <NotFound /> }
+  { path: '/login', element: !isLogin ? <Login /> : <NotFound isLogin={isLogin} /> },
+  { path: '/', element: isLogin ? <Home /> : <NotFound isLogin={isLogin} /> },
+  { path: '/device', element: isLogin ? <Device /> : <NotFound isLogin={isLogin} /> },
+  { path: '/device/:idDevice', element: isLogin ? <Device /> : <NotFound isLogin={isLogin} /> },
+  { path: '/service', element: isLogin ? <Service /> : <NotFound isLogin={isLogin} /> },
+  { path: '/service/:idService', element: isLogin ? <Service /> : <NotFound isLogin={isLogin} /> },
+  { path: '/problem', element: isLogin ? <Problem /> : <NotFound isLogin={isLogin} /> },
+  { path: '/problem/:idProblem', element: isLogin ? <Problem /> : <NotFound isLogin={isLogin} /> },
+  { path: '/notice', element: isLogin ? <Notice /> : <NotFound isLogin={isLogin} /> },
+  { path: '/notice/:idNotice', element: isLogin ? <Notice /> : <NotFound isLogin={isLogin} /> },
+  { path: '/workorder', element: isLogin ? <WorkOrder /> : <NotFound isLogin={isLogin} /> },
+  { path: '/workorder/:idWorkOrder', element: isLogin ? <WorkOrder /> : <NotFound isLogin={isLogin} /> },
+  { path: '/action', element: isLogin ? <Action /> : <NotFound isLogin={isLogin} /> },
+  { path: '/action/:idAction', element: isLogin ? <Action /> : <NotFound isLogin={isLogin} /> },
+  { path: '/*', element: <NotFound isLogin={isLogin} /> }
 ]
 
 export default routes;

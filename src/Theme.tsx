@@ -31,7 +31,7 @@ export default function Theme() {
   const [mode, setMode] = useState<'light' | 'dark'>('light');
 
   useEffect(() => {
-    dispatch(change(cookies.darkmode));
+    dispatch(change(cookies.darkmode ?? 'light'));
     if (darkMode === 'light' || darkMode === 'dark') {
       setMode(darkMode);
     }

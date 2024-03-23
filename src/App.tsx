@@ -1,18 +1,26 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRoutes } from 'react-router-dom'
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { useCookies } from 'react-cookie';
 
-import type { RootState } from './Redux/Store'
+import type { RootState, AppDispatch } from './Redux/Store'
 import routes from './Route/Routes';
 import Menu from './Components/Menu/Menu';
 import Loading from './Components/Global/loading/Loading';
 import '../dist/tailwindOut.css';
+import { getLogin } from './Redux/Reducer/LoginReducer';
 
 export default function App(): React.JSX.Element {
-  
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const dispatch = useDispatch<AppDispatch>();
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const loginInfo = useSelector((state: RootState) => state.login);
-  const router = useRoutes(routes(loginInfo.isLogin));
+  const router = useRoutes(routes(loginInfo[0]?.isLogin ?? false));
+  const [cookies, ,] = useCookies(['token']);
+
+  useEffect(() => {
+    dispatch(getLogin(cookies.token)).then(() => setIsLoading(false));
+  }, [])
 
   if (isLoading) {
     return (<div className="mt-20"><Loading /></div>)
@@ -20,9 +28,17 @@ export default function App(): React.JSX.Element {
 
   return (
     <>
-      <Menu>
-        {router}
-      </Menu>
+      {
+        loginInfo[0]?.isLogin
+          ?
+          <Menu>
+            {router}
+          </Menu>
+          :
+          <>
+            {router}
+          </>
+      }
     </>
   )
 }

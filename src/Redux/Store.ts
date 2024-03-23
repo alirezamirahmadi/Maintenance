@@ -9,6 +9,7 @@ import NoticeReducer from './Reducer/NoticeReducer';
 import WorkOrderReducer from './Reducer/WorkOrderReducer';
 import ActionReducer from './Reducer/ActionReducer';
 import ModeReducer from './Reducer/ModeReducer';
+import AccountReducer from './Reducer/AccountReducer';
 
 const store = configureStore({
   reducer: {
@@ -21,6 +22,7 @@ const store = configureStore({
     workorder: WorkOrderReducer,
     action: ActionReducer,
     mode: ModeReducer,
+    account: AccountReducer,
   }
 })
 
