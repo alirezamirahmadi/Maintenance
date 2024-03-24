@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 
 import { AppDispatch } from "../../Redux/Store";
 import { change } from "../../Redux/Reducer/ModeReducer";
+import AccountMenu from "./AccountMenu";
 
 export default function NavBar(): React.JSX.Element {
 
@@ -28,6 +29,7 @@ export default function NavBar(): React.JSX.Element {
             <IconButton onClick={colorMode} color="inherit">
               {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
             </IconButton>
+            <AccountMenu />
           </div>
         </div>
       </div>

@@ -23,7 +23,7 @@ const logout = createAsyncThunk(
 
 const slice = createSlice({
   name: 'login',
-  initialState: [{ isLogin: false, token: '', person: { firstName: '', lastName: '', phone: '' } }],
+  initialState: [{id:"", isLogin: false, token: '', person: { firstName: '', lastName: '', phone: '' } }],
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(getLogin.fulfilled, (state, action) => action.payload),

@@ -29,7 +29,7 @@ export default function Login(): React.JSX.Element {
   }
 
   useEffect(() => {
-    if (account[0].password === password) {
+    if (account[0]?.password === password) {
       dispatch(postLogin({ isLogin: true, token: account[0].person.phone, person: account[0].person })).then(() => {
         dispatch(getLogin(account[0].person.phone ?? '0'));
         setCookie('token', account[0].person.phone ?? '0');
@@ -37,7 +37,7 @@ export default function Login(): React.JSX.Element {
       })
     }
     else {
-      showMessage('نام کاربری و یا رمز عبور نادرست است');
+      username && password && showMessage('نام کاربری و یا رمز عبور نادرست است');
     }
   }, [account])
 
@@ -49,7 +49,7 @@ export default function Login(): React.JSX.Element {
         </div>
         <div className="flex flex-col items-center gap-2 ">
           <TextField value={username} onChange={(event) => setUsername(event.target.value)} size="small" sx={{ width: 192, mt: 1 }} color="primary" label={<Typography variant="body1" sx={{ display: 'inline' }}>نام کاربری</Typography>} variant="outlined" required />
-          <TextField value={password} onChange={(event) => setPassword(event.target.value)} size="small" sx={{ width: 192, mt: 1 }} color="primary" label={<Typography variant="body1" sx={{ display: 'inline' }}>کلمه عبور</Typography>} variant="outlined" required />
+          <TextField value={password} onChange={(event) => setPassword(event.target.value)} size="small" sx={{ width: 192, mt: 1 }} color="primary" label={<Typography variant="body1" sx={{ display: 'inline' }}>کلمه عبور</Typography>} variant="outlined" required type='password' />
           <Button variant="contained" onClick={loginHandler} sx={{ mt: 1, mx: 'auto', display: 'block' }}>ورود</Button>
         </div>
       </div>
